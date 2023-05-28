@@ -1,0 +1,117 @@
+{% extends '_.admin.base' %}
+
+{% block head %}
+
+	{$ parent() $}
+	<script src="/packages/netshaper/admin/js/form.js?v={$ V $}"></script>
+
+{% endblock %}
+
+{% block content %}
+
+	<form
+		{# TODO getFormAction() #}
+		action="{$ url.admin $}/{$ request.segments[1] $}/{$ item.id|default('') $}"
+		class="form-horizontal"
+		method="post"
+		ng-controller="NetShaperAdminFormController"
+	>
+
+		{# TODO getFormMethod() #}
+		{% if item|default(null) %}
+			<input name="_method" type="hidden" value="put">
+		{% endif %}
+
+		<div class="row">
+			<div class="col-sm-3" ng-class="{'has-error': errors.id.length > 0}">
+
+				<div class="input-group">
+					<input class="form-control" name="name" type="text" value="{{ item.name }}">
+					<div class="input-group-addon" ng-bind="'.' + (item.id ? item.extension : extension)"></div>
+				</div>
+				<p class="help-block" ng-bind="error" ng-repeat="error in errors.id"></p>
+
+			</div>
+			<div class="col-sm-9">
+
+				<div class="pull-right">
+
+					<button class="btn btn-danger btn-sm" id="destroy_button" ng-show="item.id" type="button">
+						<span class="fa fa-trash-o"></span>
+						Удалить
+					</button>
+
+					<a class="btn btn-warning btn-sm" href="{$ url.admin $}/{$ request.segments[1] $}">
+						<span class="fa fa-reply"></span>
+						К списку
+					</a>
+
+					<button class="btn btn-primary btn-sm" id="save_button" ng-show="item.id" type="submit">
+						<span class="fa fa-save"></span>
+						Сохранить
+					</button>
+
+					<button class="btn btn-success btn-sm" ng-show="!item.id" type="submit">
+						<span class="fa fa-plus"></span>
+						Создать
+					</button>
+
+				</div>
+
+			</div>
+		</div>
+
+		<hr>
+
+		<div class="row">
+			<div class="col-sm-3">
+				<ul class="nav nav-pills nav-stacked files">
+					<li
+						ng-class="{active: file.id === item.id}"
+						ng-repeat="file in items"
+					>
+						<a ng-href="{{ url.admin }}/{{ request.segments[1] }}/{{ file.id }}/edit">
+							{% block link %}
+								<span ng-bind="file.id"></span>
+							{% endblock %}
+						</a>
+					</li>
+				</ul>
+			</div>
+			<div class="col-sm-9">
+
+				<div class="form-group" ng-show="item.path">
+					<div class="col-sm-12">
+						<input class="form-control" readonly type="text" value="{{ item.path }}{{ item.id }}">
+					</div>
+				</div>
+
+				{% block fields %}
+					<ns-code
+						alias="code"
+						default="{{ default }}"
+						item="item"
+						method="put"
+						mode="{{ mode }}"
+						size="12"
+						url="{{ item.id ? url.admin + '/' + request.segments[1] + '/' + item.id : null }}"
+					></ns-code>
+				{% endblock %}
+
+			</div>
+		</div>
+
+	</form>
+
+	{% if item|default(null) %}
+		<form
+			action="{$ url.admin $}/{$ request.segments[1] $}/{$ item.id $}"
+			class="display-none"
+			id="destroy_form"
+			method="post"
+		>
+			<input name="_method" type="hidden" value="delete">
+		</form>
+	{% endif %}
+
+{% endblock %}

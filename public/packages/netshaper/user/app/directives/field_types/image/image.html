@@ -1,0 +1,14 @@
+<ns-form-upload
+	alias="{{ alias }}"
+	item="item"
+	label="{{ label }}"
+	ng-disabled="disabled"
+	path="/site/data/images/source"
+	property="{{ property }}"
+	size="{{ size }}"
+	upload-url="/user/upload_images"
+>
+	<a ng-href="{{ getLink() }}" ng-show="item[property]" target="_blank">
+		<img height="35" ng-src="{{ getLink() }}">
+	</a>
+</ns-form-upload>

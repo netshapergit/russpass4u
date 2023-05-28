@@ -1,0 +1,15 @@
+<ns-form-group alias="{{ alias }}" label="{{ label }}" size="{{ size }}">
+	<textarea
+		class="display-none"
+		id="{{ alias }}"
+		name="{{ alias }}"
+		ng-model="item[property]"
+	></textarea>
+	<div
+		mode="{{ mode }}"
+		ng-disabled="disabled"
+		ns-code-editor="{{ item[property] }}"
+		on-change="setCode(code)"
+		on-save="save(code)"
+	></div>
+</ns-form-group>

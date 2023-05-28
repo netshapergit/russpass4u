@@ -1,0 +1,49 @@
+<div class="row">
+	<div class="col-sm-8">
+		<ns-option alias="config[slideshow][image_size]" item="config" label="Размер изображения" options="list.custom.slideshow.imageSizes" property="image_size" size="6"></ns-option>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-sm-6">
+		<ns-integer alias="config[slideshow][interval]" default="3" item="config" label="Интервал (секунды)" property="interval" size="4"></ns-integer>
+	</div>
+	<div class="col-sm-2"></div>
+	<div class="col-sm-2">
+		<ns-checkbox alias="config[slideshow][arrows]" item="config" label="Стрелки" property="arrows" size="12"></ns-checkbox>
+	</div>
+	<div class="col-sm-2">
+		<ns-checkbox alias="config[slideshow][bullets]" item="config" label="Колодцы" property="bullets" size="12"></ns-checkbox>
+	</div>
+</div>
+
+<hr>
+
+<div ng-repeat="item in config.items">
+
+	<div class="row">
+		<div class="col-sm-6">
+			<ns-checkbox alias="{{ getAlias($index, 'active') }}" item="item" label="Активный слайд" size="12" property="active"></ns-checkbox>
+		</div>
+		<div class="col-sm-6">
+			<div class="pull-right">
+				<ns-list-item-controls index="{{ $index }}" items="config.items"></ns-list-item-controls>
+			</div>
+		</div>
+	</div>
+
+	<ns-target alias="{{ getAlias($index) }}" item="item" pages="list.custom.slideshow.pages"></ns-target>
+
+	<ns-image alias="{{ getAlias($index, 'image') }}" item="item" label="Изображение" property="image"></ns-image>
+
+	<ns-string alias="{{ getAlias($index, 'header') }}" item="item" label="Заголовок" property="header"></ns-string>
+
+	<ns-text alias="{{ getAlias($index, 'description') }}" item="item" label="Подпись" property="description"></ns-text>
+
+	<hr>
+
+</div>
+
+<div class="pull-right">
+	<ns-list-controls create="create" items="config.items"></ns-list-controls>
+</div>

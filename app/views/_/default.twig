@@ -1,0 +1,350 @@
+{% extends '_.site' %}
+
+{% block head %}
+
+	{$ parent() $}
+
+	<link rel="stylesheet" href="/packages/bootstrap/3.2.0/css/bootstrap.min.css">
+
+	{# <script src="/packages/bootstrap/3.2.0/js/bootstrap.min.js"></script> #}
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js"></script>
+
+{% endblock %}
+
+{% block body %}
+
+	<div class="layout {$ page.layout.alias|default('') $}">
+		{% block layout %}
+
+			{#{% block before_highest %}{% endblock %}#}
+			{% block wrap_highest %}
+				<div class="wrap highest">
+					<div class="container{% if system.layout_fluid|default(false) %}-fluid{% endif %}">
+						{% if modules.highest.content|default('')|raw %}
+							<div class="block highest">
+								{% block highest %}
+									{$ modules.highest.content|raw $}
+								{% endblock %}
+							</div>
+						{% endif %}
+					</div>
+				</div>
+			{% endblock %}
+			{#{% block after_highest %}{% endblock %}#}
+
+			{% if system.layout_single_container|default(false) %}
+				<div class="container{% if system.layout_fluid|default(false) %}-fluid{% endif %}">
+			{% endif %}
+
+			{#{% block before_header %}{% endblock %}#}
+			{% block wrap_header %}
+				<div class="wrap header">
+					<div class="
+						{% if not system.layout_single_container|default(false) %}
+							container{% if system.layout_fluid|default(false) %}-fluid{% endif %}
+						{% endif %}
+					">
+						{% if modules.header.content|default('')|raw %}
+							<div class="block header">
+								{% block header %}
+									{$ modules.header.content|raw $}
+								{% endblock %}
+							</div>
+						{% endif %}
+					</div>
+				</div>
+			{% endblock %}
+			{#{% block after_header %}{% endblock %}#}
+
+			{#{% block before_top %}{% endblock %}#}
+			{% block wrap_top %}
+				<div class="wrap top">
+					<div class="
+						{% if not system.layout_single_container|default(false) %}
+							container{% if system.layout_fluid|default(false) %}-fluid{% endif %}
+						{% endif %}
+					">
+						{% if modules.top.content|default('')|raw %}
+							<div class="block top">
+								{% block top %}
+									{$ modules.top.content|raw $}
+								{% endblock %}
+							</div>
+						{% endif %}
+					</div>
+				</div>
+			{% endblock %}
+			{#{% block after_top %}{% endblock %}#}
+
+			{#{% block before_middle %}{% endblock %}#}
+			{% block wrap_middle %}
+
+				{% set versoBlockSize = modules.verso.length|default(0) > 0 ? system.layout_verso_size|default(3) : 0 %}
+				{% set rectoBlockSize = modules.recto.length|default(0) > 0 ? system.layout_recto_size|default(3) : 0 %}
+				{% set meanBlockSize = 12 - versoBlockSize - rectoBlockSize %}
+
+				{% set leftBlockSize = modules.left.length|default(0) > 0 ? system.layout_left_size|default(3) : 0 %}
+				{% set rightBlockSize = modules.right.length|default(0) > 0 ? system.layout_right_size|default(3) : 0 %}
+				{% set centerBlockSize = 12 - leftBlockSize - rightBlockSize %}
+
+				<div class="wrap middle">
+					<div class="
+						{% if not system.layout_single_container|default(false) %}
+							container{% if system.layout_fluid|default(false) %}-fluid{% endif %}
+						{% endif %}
+					">
+						<div class="block middle">
+							{% block middle %}
+
+								<div class="row">
+
+									{% block wrap_verso %}
+										{% if versoBlockSize > 0 %}
+											<div class="col-sm-{$ versoBlockSize $} col-xs-12 wrap verso">
+												{% if modules.verso.content|default('')|raw %}
+													<div class="block verso">
+														{% block verso %}
+															{$ modules.verso.content|raw $}
+														{% endblock %}
+													</div>
+												{% endif %}
+											</div>
+										{% endif %}
+									{% endblock %}
+
+									{% block wrap_mean %}
+										{% if meanBlockSize > 0 %}
+											<div class="col-sm-{$ meanBlockSize $} col-xs-12 wrap mean">
+												<div class="block mean">
+													{% block mean %}
+
+														{#{% block before_above %}{% endblock %}#}
+														{% block wrap_above %}
+															<div class="wrap above">
+																{% if modules.above.content|default('')|raw %}
+																	<div class="block above">
+																		{% block above %}
+																			{$ modules.above.content|raw $}
+																		{% endblock %}
+																	</div>
+																{% endif %}
+															</div>
+														{% endblock %}
+														{#{% block after_above %}{% endblock %}#}
+
+														{#{% block before_main %}{% endblock %}#}
+														{% block wrap_main %}
+															<div class="wrap main">
+																<div class="block main">
+																	{% block main %}
+
+																		<div class="row">
+
+																			{% block wrap_left %}
+																				{% if leftBlockSize > 0 %}
+																					<div class="col-sm-{$ leftBlockSize $} col-xs-12 wrap left">
+																						{% if modules.left.content|default('')|raw %}
+																							<div class="block left">
+																								{% block left %}
+																									{$ modules.left.content|raw $}
+																								{% endblock %}
+																							</div>
+																						{% endif %}
+																					</div>
+																				{% endif %}
+																			{% endblock %}
+
+																			{% block wrap_center %}
+																				{% if centerBlockSize > 0 %}
+																					<div class="col-sm-{$ centerBlockSize $} col-xs-12 wrap center">
+																						<div class="block center">
+																							{% block center %}
+
+																								{#{% block before_pre %}{% endblock %}#}
+																								{% block wrap_pre %}
+																									<div class="wrap pre">
+																										{% if modules.pre.content|default('')|raw %}
+																											<div class="block pre">
+																												{% block pre %}
+																													{$ modules.pre.content|raw $}
+																												{% endblock %}
+																											</div>
+																										{% endif %}
+																									</div>
+																								{% endblock %}
+																								{#{% block after_pre %}{% endblock %}#}
+
+																								{#{% block before_content %}{% endblock %}#}
+																								{% block wrap_content %}
+																									<div class="wrap content">
+																										<div class="block content">
+																											{% block content %}{% endblock %}
+																										</div>
+																									</div>
+																								{% endblock %}
+																								{#{% block after_content %}{% endblock %}#}
+
+																								{#{% block before_post %}{% endblock %}#}
+																								{% block wrap_post %}
+																									<div class="wrap post">
+																										{% if modules.post.content|default('')|raw %}
+																											<div class="block post">
+																												{% block post %}
+																													{$ modules.post.content|raw $}
+																												{% endblock %}
+																											</div>
+																										{% endif %}
+																									</div>
+																								{% endblock %}
+																								{#{% block aftre_post %}{% endblock %}#}
+
+																							{% endblock %}
+																						</div>
+																					</div>
+																				{% endif %}
+																			{% endblock %}
+
+																			{% block wrap_right %}
+																				{% if rightBlockSize > 0 %}
+																					<div class="col-sm-{$ rightBlockSize $} col-xs-12 wrap right">
+																						{% if modules.right.content|default('')|raw %}
+																							<div class="block right">
+																								{% block right %}
+																									{$ modules.right.content|raw $}
+																								{% endblock %}
+																							</div>
+																						{% endif %}
+																					</div>
+																				{% endif %}
+																			{% endblock %}
+
+																		</div>
+
+																	{% endblock %}
+																</div>
+															</div>
+														{% endblock %}
+														{#{% block after_main %}{% endblock %}#}
+
+														{#{% block before_below %}{% endblock %}#}
+														{% block wrap_below %}
+															<div class="wrap below">
+																{% if modules.below.content|default('')|raw %}
+																	<div class="block below">
+																		{% block below %}
+																			{$ modules.below.content|raw $}
+																		{% endblock %}
+																	</div>
+																{% endif %}
+															</div>
+														{% endblock %}
+														{#{% block after_below %}{% endblock %}#}
+
+													{% endblock %}
+												</div>
+											</div>
+										{% endif %}
+									{% endblock %}
+
+									{% block wrap_recto %}
+										{% if rectoBlockSize > 0 %}
+											<div class="col-sm-{$ rectoBlockSize $} col-xs-12 wrap recto">
+												{% if modules.recto.content|default('')|raw %}
+													<div class="block recto">
+														{% block recto %}
+															{$ modules.recto.content|raw $}
+														{% endblock %}
+													</div>
+												{% endif %}
+											</div>
+										{% endif %}
+									{% endblock %}
+
+								</div>
+
+							{% endblock %}
+						</div>
+					</div>
+				</div>
+
+			{% endblock %}
+			{#{% block after_middle %}{% endblock %}#}
+
+			{#{% block before_bottom %}{% endblock %}#}
+			{% block wrap_bottom %}
+				<div class="wrap bottom">
+					<div class="
+						{% if not system.layout_single_container|default(false) %}
+							container{% if system.layout_fluid|default(false) %}-fluid{% endif %}
+						{% endif %}
+					">
+						{% if modules.bottom.content|default('')|raw %}
+							<div class="block bottom">
+								{% block bottom %}
+									{$ modules.bottom.content|raw $}
+								{% endblock %}
+							</div>
+						{% endif %}
+					</div>
+				</div>
+			{% endblock %}
+			{#{% block after_bottom %}{% endblock %}#}
+
+			{#{% block before_footer %}{% endblock %}#}
+			{% block wrap_footer %}
+				<div class="wrap footer">
+					<div class="
+						{% if not system.layout_single_container|default(false) %}
+							container{% if system.layout_fluid|default(false) %}-fluid{% endif %}
+						{% endif %}
+					">
+						{% if modules.footer.content|default('')|raw %}
+							<div class="block footer">
+								{% block footer %}
+									{$ modules.footer.content|raw $}
+								{% endblock %}
+							</div>
+						{% endif %}
+					</div>
+				</div>
+			{% endblock %}
+			{#{% block after_footer %}{% endblock %}#}
+
+			{% if system.layout_single_container|default(false) %}
+				</div>
+			{% endif %}
+
+			{#{% block before_lowest %}{% endblock %}#}
+			{% block wrap_lowest %}
+				<div class="wrap lowest">
+					<div class="container{% if system.layout_fluid|default(false) %}-fluid{% endif %}">
+						{% if modules.lowest.content|default('')|raw %}
+							<div class="block lowest">
+								{% block lowest %}
+									{$ modules.lowest.content|raw $}
+								{% endblock %}
+							</div>
+						{% endif %}
+					</div>
+				</div>
+			{% endblock %}
+			{#{% block after_lowest %}{% endblock %}#}
+
+			{#{% block before_dummy %}{% endblock %}#}
+			{% block wrap_dummy %}
+				<div class="wrap dummy hide">
+					{% if modules.dummy.length|default(0) > 0 %}
+						<div class="block dummy">
+							{% block dummy %}
+								{$ modules.dummy.content|raw $}
+							{% endblock %}
+						</div>
+					{% endif %}
+				</div>
+			{% endblock %}
+			{#{% block after_dummy %}{% endblock %}#}
+
+		{% endblock %}
+	</div>
+
+{% endblock %}

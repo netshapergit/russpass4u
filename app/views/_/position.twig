@@ -1,0 +1,18 @@
+{% if rows|length > 0 %}
+	<div class="position {$ position.alias $}">
+		{% for row in rows %}
+			{% if row|length > 1 %}
+				{% set size = max(1, (12 / row|length)|round(0, 'floor')) %}
+				<div class="row">
+					{% for render in row %}
+						<div class="col-sm-{$ size $}">
+							{$ render|raw $}
+						</div>
+					{% endfor %}
+				</div>
+			{% else %}
+				{$ row[0]|default('')|raw $}
+			{% endif %}
+		{% endfor %}
+	</div>
+{% endif %}

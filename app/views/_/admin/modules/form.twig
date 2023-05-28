@@ -1,0 +1,139 @@
+{% extends '_.admin.form' %}
+
+{% block fields %}
+
+	<div class="row" ng-controller="NetShaperAdminFormModulesController">
+
+		<div class="col-sm-6">
+
+			<div class="row">
+				<div class="col-sm-4">
+					<ns-integer alias="id" disabled item="item" label="ID" ng-show="item.id" size="6"></ns-integer>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-sm-6">
+					<ns-option alias="module_type_id" item="item" label="Тип модуля" options="list.moduleTypes" size="8"></ns-option>
+				</div>
+				<div class="col-sm-6" ng-show="moduleTypeLayouts.length > 0">
+					<ns-option
+						alias="module_type_layout_id"
+						empty
+						item="item"
+						label="Макет модуля"
+						options="moduleTypeLayouts"
+						size="8"
+					></ns-option>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-sm-8">
+					<ns-text alias="name" item="item" label="Название" size="9"></ns-text>
+				</div>
+				<div class="col-sm-4">
+					<ns-checkbox alias="show_name" item="item" label="Заголовок" size="12"></ns-checkbox>
+				</div>
+			</div>
+
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					Видимость
+				</div>
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-sm-6">
+							<ns-option alias="access_level" default="any" item="item" label="Доступ" options="list.accessLevels" size="8"></ns-option>
+						</div>
+						<div class="col-sm-6">
+							<ns-checkbox alias="active" default="1" item="item" label="Модуль активен" size="8"></ns-checkbox>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					Расположение
+				</div>
+				<div class="panel-body">
+
+					<div class="row">
+						<div class="col-sm-8">
+							<ns-option alias="position_id" item="item" label="Позиция" options="list.positions" size="9"></ns-option>
+						</div>
+						<div class="col-sm-4">
+							<ns-integer alias="order" default="0" item="item" label="Порядок" size="6"></ns-integer>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-sm-6">
+							<ns-checkbox alias="in_a_row" item="item" label="В ряд" size="8"></ns-checkbox>
+						</div>
+						<div class="col-sm-6">
+							<ns-checkbox alias="new_row" item="item" label="Новый ряд" ng-show="item.in_a_row" size="8"></ns-checkbox>
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					Отображение
+				</div>
+				<div class="panel-body">
+
+					<div class="row">
+						<div class="col-sm-6">
+							<ns-option alias="bind_layouts" default="all" item="item" label="Макеты" options="list.binds" size="8"></ns-option>
+						</div>
+						<div class="col-sm-6">
+							<ns-option alias="bind_pages" default="all" item="item" label="Страницы" options="list.binds" size="8"></ns-option>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-sm-offset-2 col-sm-10">
+							<small class="text-muted">
+								<p ng-switch="item.bind_layouts + '_' + item.bind_pages">
+									<span ng-show="item.bind_layouts && item.bind_pages">Модуль будет показан</span>
+									<span ng-switch-when="all_all">на всех страницах</span>
+									<span ng-switch-when="all_except">на всех страницах, кроме выбранных</span>
+									<span ng-switch-when="all_for">только на выбранных страницах</span>
+									<span ng-switch-when="except_all">на всех страницах, кроме выбранных макетов</span>
+									<span ng-switch-when="except_except">на всех страницах, кроме выбранных макетов, и кроме выбранных страниц</span>
+									<span ng-switch-when="except_for">на всех страницах, кроме выбранных макетов, и на выбранных страницах (любых макетов)</span>
+									<span ng-switch-when="for_all">только на страницах выбранных макетов</span>
+									<span ng-switch-when="for_except">на страницах выбранных макетов, кроме выбранных страниц</span>
+									<span ng-switch-when="for_for">на страницах выбранных макетов и на выбранных страницах (любых макетов)</span>
+								</p>
+							</small>
+						</div>
+					</div>
+
+					<ns-options alias="layouts" item="item" label="Макеты" ng-show="showBinding(item.bind_layouts)" options="list.layouts"></ns-options>
+
+					<ns-options alias="pages" item="item" label="Страницы" ng-show="showBinding(item.bind_pages)" pages="list.pages"></ns-options>
+
+				</div>
+			</div>
+
+		</div>
+
+		<div class="col-sm-6">
+
+			<ns-incognito-module-type
+				config="config"
+				module-type="{{ moduleType.alias }}"
+				ng-repeat="moduleType in list.moduleTypes"
+				ng-show="moduleType.id === item.module_type_id"
+			></ns-incognito-module-type>
+
+		</div>
+
+	</div>
+
+{% endblock %}

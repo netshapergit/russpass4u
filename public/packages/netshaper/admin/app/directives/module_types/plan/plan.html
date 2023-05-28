@@ -1,0 +1,45 @@
+<div class="display-none">
+	<ns-integer alias="config[plan][x]" item="config" property="x"></ns-integer>
+	<ns-integer alias="config[plan][y]" item="config" property="y"></ns-integer>
+	<ns-integer alias="config[plan][width]" item="config" property="width"></ns-integer>
+	<ns-integer alias="config[plan][height]" item="config" property="height"></ns-integer>
+</div>
+
+<div ng-repeat="section in config.sections" ng-show="section.hover">
+
+	<ns-string alias="config[plan][sections][{{ $index }}][label][text]" item="section.label" label="Подпись" property="text"></ns-string>
+
+	<div class="row">
+		<div class="col-sm-4">
+			<ns-double alias="config[plan][sections][{{ $index }}][label][size]" item="section.label" label="Размер шрифта" property="size" size="6"></ns-double>
+		</div>
+		<div class="col-sm-4">
+			<ns-color alias="config[plan][sections][{{ $index }}][label][color]" item="section.label" label="Цвет текста" property="color" size="6"></ns-color>
+		</div>
+		<div class="col-sm-4">
+			<ns-color alias="config[plan][sections][{{ $index }}][shape][fill]" item="section.shape" label="Цвет заливки" property="fill" size="6"></ns-color>
+		</div>
+	</div>
+
+	<ns-string alias="config[plan][sections][{{ $index }}][popover][title]" item="section.popover"  label="Заголовок" property="title"></ns-string>
+	<ns-html alias="config[plan][sections][{{ $index }}][popover][content]" item="section.popover" label="Описание" ng-show="section.popover.title" property="content"></ns-html>
+	<ns-target alias="config[plan][sections][{{ $index }}][link]" item="section.link" pages="list.custom.plan.pages"></ns-target>
+
+	<div class="display-none">
+
+		<ns-integer alias="config[plan][sections][{{ $index }}][label][point][0]" item="section.label.point" property="0"></ns-integer>
+		<ns-integer alias="config[plan][sections][{{ $index }}][label][point][1]" item="section.label.point" property="1"></ns-integer>
+
+		<ns-checkbox alias="config[plan][sections][{{ $index }}][hover]" item="section" property="hover"></ns-checkbox>
+		<ns-string alias="config[plan][sections][{{ $index }}][shape][stroke]" item="section.shape" property="stroke"></ns-string>
+
+		<div ng-repeat="point in section.shape.points">
+			<ns-integer alias="config[plan][sections][{{ $parent.$index }}][shape][points][{{ $index }}][0]" item="point" property="0"></ns-integer>
+			<ns-integer alias="config[plan][sections][{{ $parent.$index }}][shape][points][{{ $index }}][1]" item="point" property="1"></ns-integer>
+		</div>
+
+	</div>
+
+	<hr>
+
+</div>

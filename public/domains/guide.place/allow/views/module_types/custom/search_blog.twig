@@ -1,0 +1,33 @@
+<form class="search_new_building" method="get" action="{$ request.url $}">
+	
+
+		
+				<div class="checkbox col-xs-6 blogname">
+					{% for field in page.active_sub_pages[0].layout.fields|default([]) if field.alias == 'blogname_id' %}
+						{% for select in field.selects|default([]) %}
+							{% for option in select.options|default([]) %}
+								<label>
+									<input
+										type="checkbox"
+										name="blogname_id[]"
+										value="{$ option.id $}"
+									   {% if option.id in request.input.blogname_id|default([]) %}
+										   checked
+									   {% endif %}
+									>
+									{$ option.name $}
+								</label>
+							{% endfor %}
+						{% endfor %}
+					{% endfor %}
+				</div>
+				
+
+		<div class="col-xs-12 col-md-2">
+			<div class="form-group submit">
+				<input class="btn btn-default" type="submit" value="Подобрать">
+			</div>
+		</div>
+
+	
+</form>

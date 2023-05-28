@@ -1,0 +1,10 @@
+<ul class="
+	nav nav-pills
+	{% if config.vertical|default(false) %}
+		nav-stacked
+	{% endif %}
+">
+	{% for item in config.items|default([]) if item.active|default(false) %}
+		{% include '_.module_types.menu.item' %}
+	{% endfor %}
+</ul>

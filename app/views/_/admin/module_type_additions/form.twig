@@ -1,0 +1,37 @@
+{% extends '_.admin.form' %}
+
+{% block fields %}
+
+	<div class="row">
+
+		<div class="col-sm-6">
+
+			<div class="row">
+				<div class="col-sm-4">
+					<ns-integer alias="id" disabled item="item" label="ID" ng-show="item.id" size="6"></ns-integer>
+				</div>
+				<div class="col-sm-4"></div>
+				<div class="col-sm-4">
+					<ns-checkbox alias="active" item="item" label="Активно" size="12"></ns-checkbox>
+				</div>
+			</div>
+
+			<ns-option alias="module_type_id" disabled item="item" label="Тип модуля" options="list.moduleTypes"></ns-option>
+
+		</div>
+
+		<div class="col-sm-6">
+
+			<div class="row">
+				<div class="col-sm-8">
+					<ns-string alias="alias" disabled item="item" label="Алиас" size="9"></ns-string>
+				</div>
+			</div>
+
+			<ns-string alias="name" item="item" label="Название"></ns-string>
+
+		</div>
+
+	</div>
+
+{% endblock %}

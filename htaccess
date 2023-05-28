@@ -1,0 +1,28 @@
+AddDefaultCharset UTF-8
+Options -MultiViews -Indexes
+RewriteEngine On
+
+# Redirect Trailing Slashes...
+#RewriteRule ^(.*)/$ /$1 [L,R=301]
+
+# Permanently redirect from www domain to non-www domain
+RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+RewriteRule ^(.*)$ http://%1/$1 [R=301,L]
+
+################################ AUTO GENERATED ALIASES ################################
+###ALIASES###
+########################################################################################
+
+# Domain files
+RewriteCond %{REQUEST_URI} ^/site/ [NC]
+RewriteRule ^site/(.*)$ /domains/%{HTTP_HOST}/allow/public/$1 [L]
+
+# Not allow any files except public files
+RewriteCond %{REQUEST_URI} ^/domains/ [NC]
+RewriteCond %{REQUEST_URI} !^/domains/[^/]+/allow/public/ [NC]
+RewriteRule ^ index.php [L]
+
+# Handle Front Controller...
+#RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^ index.php [L]

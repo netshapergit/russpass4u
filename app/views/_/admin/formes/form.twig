@@ -1,0 +1,32 @@
+{% extends '_.admin.form' %}
+
+{% block fields %}
+
+	<div class="row">
+
+		<div class="col-sm-6">
+
+			<div class="row">
+				<div class="col-sm-4">
+					<ns-integer alias="id" disabled item="item" label="ID" ng-show="item.id" size="6"></ns-integer>
+				</div>
+				<div class="col-sm-8">
+					<ns-string alias="alias" item="item" label="Алиас" size="9"></ns-string>
+				</div>
+			</div>
+
+			<ns-string alias="name" item="item" label="Название"></ns-string>
+
+			<ns-options alias="fields" item="item" label="Поля" options="list.fields" order require></ns-options>
+
+		</div>
+
+		<div class="col-sm-6">
+
+			<ns-html alias="notification" item="item" label="Текст после отправки"></ns-html>
+
+		</div>
+
+	</div>
+
+{% endblock %}

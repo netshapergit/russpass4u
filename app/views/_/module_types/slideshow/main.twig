@@ -1,0 +1,146 @@
+{% set id = random() %}
+{% set width = system['image_' ~ config.image_size|default('large') ~ '_width']|default(640) %}
+{% set height = system['image_' ~ config.image_size|default('large') ~ '_height']|default(480) %}
+
+<script src="/packages/jssor-slider/js/jssor.slider.mini.js"></script>
+
+<script>
+	$(function() {
+		var slider = new $JssorSlider$('{$ id $}', {
+			{% if config.arrows|default(false) and config.items|default([])|length > 1 %}
+				$ArrowNavigatorOptions: {
+					$AutoCenter: 2,
+					$ChanceToShow: 1,
+					$Class: $JssorArrowNavigator$
+				},
+			{% endif %}
+			{% if config.bullets|default(false) and config.items|default([])|length > 1 %}
+				$BulletNavigatorOptions: {
+					$AutoCenter: 1,
+					$ChanceToShow: 2,
+					$Class: $JssorBulletNavigator$,
+					$SpacingY: 5
+				},
+			{% endif %}
+			$AutoPlay: true,
+			$AutoPlayInterval: {$ config.interval|default(3) * 1000 $}
+		});
+
+		function scale() {
+			var parentWidth = $('#{$ id $}').parent().width();
+			if (parentWidth) {
+				slider.$SetScaleWidth(parentWidth);
+			} else {
+				window.setTimeout(scale, 30);
+			}
+		}
+
+		scale();
+
+		if (!navigator.userAgent.match(/(iPhone|iPod|iPad|BlackBerry|IEMobile)/)) {
+			$(window).bind('resize', scale);
+		}
+	});
+</script>
+
+{% if config.arrows|default(false) and config.items|default([])|length > 1 %}
+	<style>
+		.jssora14l, .jssora14r, .jssora14ldn, .jssora14rdn {
+			position: absolute;
+			cursor: pointer;
+			display: block;
+			background: url('/packages/jssor-slider/img/a14.png') no-repeat;
+			overflow:hidden;
+		}
+		.jssora14l { background-position: -15px -35px; }
+		.jssora14r { background-position: -75px -35px; }
+		.jssora14l:hover { background-position: -135px -35px; }
+		.jssora14r:hover { background-position: -195px -35px; }
+		.jssora14ldn { background-position: -255px -35px; }
+		.jssora14rdn { background-position: -315px -35px; }
+
+	</style>
+{% endif %}
+
+{% if config.bullets|default(false) and config.items|default([])|length > 1 %}
+	<style>
+		.jssorb14 div, .jssorb14 div:hover, .jssorb14 .av {
+			background: url('/packages/jssor-slider/img/b14.png') no-repeat;
+			overflow:hidden;
+			cursor: pointer;
+		}
+		.jssorb14 div { background-position: -9px -9px; }
+		.jssorb14 div:hover, .jssorb14 .av:hover { background-position: -39px -9px; }
+		.jssorb14 .av { background-position: -69px -9px; }
+		.jssorb14 .dn, .jssorb14 .dn:hover { background-position: -99px -9px; }
+	</style>
+{% endif %}
+
+<style>
+	[u=slides] [u=caption] {color: #fff; text-shadow: #000 0 0 20px;}
+</style>
+
+<div id="{$ id $}" style="position: relative; top: 0; left: 0; width: {$ width $}px; height: {$ height $}px;">
+
+	<div u="slides" style="cursor: move; position: absolute; overflow: hidden; left: 0; top: 0; width: {$ width $}px; height: {$ height $}px;">
+		{% for item in config.items|default([]) if item.active|default(false) %}
+			<div>
+
+				{% if item.has_target|default(false) %}
+					{% if item.external|default(false) and item.url|default('') %}
+						<a href="{$ item.url $}" target="_blank">
+					{% elseif not item.external|default(false) and item.page|default(null) %}
+						<a href="{$ item.page.path $}">
+					{% endif %}
+				{% endif %}
+
+				{% if item.image|default('') %}
+					<img
+						{% if item.header|default('') %}
+							alt="{$ item.header $}"
+						{% endif %}
+						src="/site/data/images/{$ config.image_size|default('large') $}/{$ item.image $}"
+						u="image"
+					>
+				{% endif %}
+
+				{% if item.header|default('') or item.description|default('') %}
+					<div
+						style=" text-align: center; position: absolute; bottom: {$ height * 0.15 $}px; left: {$ width * 0.15 $}px; width: {$ width * 0.7 $}px;"
+						t="caption-transition-name"
+						u="caption"
+					>
+						{% if item.header|default('') %}
+							<h3>{$ item.header $}</h3>
+						{% endif %}
+						{% if item.description|default('') %}
+							<p style="white-space: pre-wrap;">{$ item.description $}</p>
+						{% endif %}
+					</div>
+				{% endif %}
+
+				{% if item.has_target|default(false) %}
+					{% if item.external|default(false) and item.url|default(false) %}
+						</a>
+					{% elseif not item.external|default(false) and item.page|default(null) %}
+						</a>
+					{% endif %}
+				{% endif %}
+
+			</div>
+		{% endfor %}
+	</div>
+
+	{% if config.arrows|default(false) and config.items|default([])|length > 1 %}
+		<span u="arrowleft" class="jssora14l" style="width: 30px; height: 50px; top: 123px; left: 0px;"></span>
+		<span u="arrowright" class="jssora14r" style="width: 30px; height: 50px; top: 123px; right: 0px"></span>
+
+	{% endif %}
+
+	{% if config.bullets|default(false) and config.items|default([])|length > 1 %}
+		<div u="navigator" class="jssorb14" style="position: absolute; bottom: {$ height * 0.075 $}px;">
+			<div u="prototype" style="position: absolute; width: 12px; height: 12px;"></div>
+		</div>
+	{% endif %}
+
+</div>

@@ -1,0 +1,144 @@
+ul.nav li.dropdown > ul.dropdown-menu {
+	margin: 0;
+}
+
+ul.nav li.dropdown:hover > ul.dropdown-menu {
+	display: block;
+}
+
+html,
+body {
+	height: 100%;
+}
+
+#root {
+	height: 100%;
+	overflow: auto;
+}
+
+header {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+}
+
+.mean {
+	padding-top: 66px;
+}
+
+.display-none {
+	display: none;
+}
+
+.drag {
+	cursor: move;
+}
+
+.pointer {
+	cursor: pointer;
+}
+
+.grid {
+	/*overflow-x: hidden;*/
+	position: relative;
+}
+
+.grid-cover {
+	margin-left: -0;
+	margin-right: -0;
+	position: relative;
+}
+
+.grid-cascade {
+	display: table;
+	position: relative;
+	width: 100%;
+}
+
+.grid-row {
+	display: table-row;
+	position: relative;
+}
+
+.grid-col {
+	display: table-cell;
+	padding-left: 0;
+	padding-right: 0;
+	position: relative;
+	vertical-align: top;
+}
+
+.inner-width {
+	max-width: 100%;
+}
+
+.list-group.auto-height {
+	max-height: 240px;
+	overflow: auto;
+	padding-bottom: 1px;
+}
+
+.file-add {
+	margin-left: 10px;
+}
+
+.files .preview {
+	display: inline-block;
+	height: 21px;
+	max-width: 100px;
+}
+
+.files .preview img {
+	max-height: 21px;
+}
+
+.CodeMirror-fullscreen {
+	z-index: 1000;
+}
+
+.note-editor .note-toolbar .note-color .dropdown-menu {
+	min-width: 330px;
+}
+
+yeti {
+	color: #008cba;
+	color: #43ac6a;
+	color: #5bc0de;
+	color: #e99002;
+	color: #f04124;
+}
+
+.cm-s-ambiance .cm-tag {
+	/*color: #fee4ff;*/
+	color: #43ac6a;
+}
+
+.cm-s-ambiance .cm-attribute {
+	/*color: #9b859d;*/
+	color: #5bc0de;
+}
+
+.cm-s-ambiance .cm-string {
+	/*color: #8f9d6a;*/
+	color: #e99002;
+}
+
+.navbar-brand {
+	padding: 11px 15px 10px;
+}
+
+.navbar-default.magicalgifts {
+	background:none;
+}
+
+.magical_cup {
+	width:100%;
+	height:100%;
+
+	background:#bd001d url('../images/cup2.png') center top no-repeat;
+}
+
+footer {
+	padding-bottom: 21px;
+}

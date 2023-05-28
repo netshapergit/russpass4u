@@ -1,0 +1,10 @@
+<div class="form-group" ng-class="{'has-error': getErrors().length > 0}">
+
+	<label class="col-sm-{{ 12 - size }} control-label" ng-bind="label" ng-show="label" for="{{ alias }}"></label>
+
+	<div class="col-sm-offset-{{ getControlOffset() }} col-sm-{{ size }}">
+		<div ng-transclude></div>
+		<p class="help-block" ng-bind="error" ng-repeat="error in getErrors()"></p>
+	</div>
+
+</div>

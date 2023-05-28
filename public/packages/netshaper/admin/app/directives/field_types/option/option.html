@@ -1,0 +1,13 @@
+<ns-form-group alias="{{ alias }}" label="{{ label }}" size="{{ size }}">
+	<select
+		class="form-control input-sm"
+		id="{{ alias }}"
+		name="{{ alias }}"
+		ng-disabled="disabled"
+		ng-model="item[property]"
+		ng-options="value as key for (value, key) in getOptions()"
+	>
+		<option ng-show="empty" value="">----------</option>
+	</select>
+	<!--ng-options="option.id as option.name for option in options"-->
+</ns-form-group>

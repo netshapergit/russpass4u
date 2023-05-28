@@ -1,0 +1,99 @@
+<div class="grid empty" ng-repeat-start="position in {$ parentVar|default('position') $}.sub_positions">
+	<div class="grid-cover">
+		<div class="grid-cascade">
+			<div class="grid-row">
+				<div class="grid-col empty" ng-drop="true" ng-drop-success="onDrop($data, $event, ROW, {$ parentVar|default('position') $}, position)"></div>
+			</div>
+		</div>
+	</div>
+</div>
+<div
+	class="grid filled"
+	ng-class="{
+		inactive: position !== edited && position.active !== '1',
+		selected: position === edited
+	}"
+	ng-repeat-end
+>
+	<div class="meta">
+		<span
+			class="label label-danger drag"
+			ng-drag="true"
+			ng-drag-data="position"
+			ng-drag-success="onDrag($data, $event, ROW, {$ parentVar|default('position') $})"
+		>
+			<span ng-bind="position.alias"></span>
+		</span>
+		<span class="label label-danger pointer" ng-click="setUp($event, ROW, {$ parentVar|default('position') $}, position)">
+			<span class="fa fa-cog"></span>
+		</span>
+		{#<input class="form-control input-sm" ng-model="position.alias" type="text">#}
+	</div>
+	<div class="grid-cover">
+		<div class="grid-cascade">
+			<div class="grid-row">
+				<div
+					class="grid-col empty"
+					ng-drop="true"
+					ng-drop-success="onDrop($data, $event, COL, position, subPosition)"
+					ng-repeat-start="subPosition in position.sub_positions"
+				></div>
+				<div
+					class="grid-col filled"
+					ng-class="{
+						inactive: subPosition !== edited && subPosition.active !== '1',
+						selected: subPosition === edited
+					}"
+					ng-repeat-end
+				>
+					<div class="meta">
+						<span
+							class="label label-success drag"
+							ng-drag="true"
+							ng-drag-data="subPosition"
+							ng-drag-success="onDrag($data, $event, COL, position)"
+						>
+							<span ng-bind="subPosition.alias"></span>
+						</span>
+						<span class="label label-success pointer" ng-click="setUp($event, COL, position, subPosition)">
+							<span class="fa fa-cog"></span>
+						</span>
+						{#<input class="form-control input-sm" ng-model="subPosition.alias" type="text">#}
+					</div>
+					<div ng-show="subPosition.sub_positions.length > 0">
+						{# TODO nested directive #}
+						{% if level|default(0) < 5 %}
+							{% include '_.admin.grid.rows' with { 'level': level|default(0) + 1, 'parentVar': 'subPosition' } %}
+						{% endif %}
+					</div>
+					<div ng-show="subPosition.sub_positions.length === 0">
+						{% include '_.admin.grid.modules' with { 'positionVar': 'subPosition' } %}
+					</div>
+				</div>
+				<div
+					class="grid-col empty"
+					ng-drop="true"
+					ng-drop-success="onDrop($data, $event, COL, position)"
+				></div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="grid empty {% if level|default(0) == 0 %}default{% endif %}">
+	<div class="grid-cover">
+		<div class="grid-cascade">
+			<div class="grid-row">
+				<div
+					class="grid-col empty {% if level|default(0) == 0 %}target{% endif %}"
+					ng-drop="true"
+					ng-drop-success="onDrop($data, $event, ROW, {$ parentVar|default('position') $})"
+				>
+					{% if level|default(0) == 0 %}
+						<span class="fa fa-hand-o-left fa-4x"></span>
+						<span class="fa fa-hand-o-down fa-4x"></span>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

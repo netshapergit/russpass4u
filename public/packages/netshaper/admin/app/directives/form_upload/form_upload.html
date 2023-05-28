@@ -1,0 +1,26 @@
+<ns-form-group alias="{{ alias }}" label="{{ label }}" size="{{ size }}">
+
+	<input class="display-none" id="{{ alias }}" name="{{ alias }}" ng-model="item[property]" type="text">
+
+	<div class="pull-right" ng-show="!item[property]">
+		<button
+			class="btn btn-default btn-sm"
+			ng-disabled="disabled"
+			ns-upload="{{ uploadUrl }}"
+			on-complete="onComplete(response)"
+			on-submit="onSubmit()"
+			type="button"
+		>
+			<span class="fa fa-upload"></span>
+			Загрузить
+		</button>
+	</div>
+
+	<button class="btn btn-default btn-sm pull-right" ng-click="remove()" ng-disabled="disabled" ng-show="item[property]" type="button">
+		<span class="fa fa-times"></span>
+		Удалить
+	</button>
+
+	<div ng-transclude></div>
+
+</ns-form-group>

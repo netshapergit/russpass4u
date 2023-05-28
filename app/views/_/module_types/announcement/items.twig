@@ -1,0 +1,11 @@
+{% if config.pages|default([])|length > 0 %}
+	<div class="items">
+		{% block items %}
+			{% for item in config.pages %}
+				<div class="item">
+					{% block item %}{% endblock %}
+				</div>
+			{% endfor %}
+		{% endblock %}
+	</div>
+{% endif %}

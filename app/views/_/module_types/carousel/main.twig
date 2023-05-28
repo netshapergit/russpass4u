@@ -1,0 +1,54 @@
+<script src="/packages/netshaper/carousel/js/carousel.js"></script>
+<link rel="stylesheet" href="/packages/netshaper/carousel/css/carousel.css">
+
+<style>
+	.ns-carousel .ns-arrow {
+		background: url('/packages/netshaper/carousel/images/a14.png');
+		height: 50px;
+		margin-top: -25px;
+		top: 50%;
+		width: 30px;
+	}
+
+	.ns-carousel .ns-arrow.ns-left { background-position: -15px -35px; }
+	.ns-carousel .ns-arrow.ns-left:hover { background-position: -135px -35px; }
+	.ns-carousel .ns-arrow.ns-left.ns-active { background-position: -255px -35px; }
+
+	.ns-carousel .ns-arrow.ns-right { background-position: -75px -35px; }
+	.ns-carousel .ns-arrow.ns-right:hover { background-position: -195px -35px; }
+	.ns-carousel .ns-arrow.ns-right.ns-active { background-position: -315px -35px; }
+</style>
+
+<div class="ns-carousel">
+	<div class="ns-hole">
+		<div class="ns-line">
+			{% for item in config.items|default([]) if item.active|default(false) and item.image|default('') %}
+				<div class="ns-item">
+
+					{% if item.has_target|default(false) %}
+						{% if item.external|default(false) and item.url|default('') %}
+							<a href="{$ item.url $}" target="_blank">
+						{% elseif not item.external|default(false) and item.page|default(null) %}
+							<a href="{$ item.page.path $}">
+						{% endif %}
+					{% endif %}
+
+					<img src="/site/data/images/{$ config.image_size|default('small') $}/{$ item.image $}">
+
+					{% if item.has_target|default(false) %}
+						{% if item.external|default(false) and item.url|default(false) %}
+							</a>
+						{% elseif not item.external|default(false) and item.page|default(null) %}
+							</a>
+						{% endif %}
+					{% endif %}
+
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+	<div class="ns-navigation">
+		<div class="ns-arrow ns-left"></div>
+		<div class="ns-arrow ns-right"></div>
+	</div>
+</div>

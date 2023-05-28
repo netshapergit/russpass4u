@@ -1,0 +1,11 @@
+<div class="
+	module
+	{$ module.moduleType.alias $}
+	layout_{$ module.moduleTypeLayout.alias|default('main') $}
+	id_{$ module.id $}
+">
+	{% if (module.show_name) %}
+		<div class="module-heading">{$ module.name $}</div>
+	{% endif %}
+	<div class="module-body">{$ content|raw $}</div>
+</div>

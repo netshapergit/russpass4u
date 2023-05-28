@@ -1,0 +1,35 @@
+{% set id = random() %}
+
+<script>
+	$(function() {
+		$('.{$ id $}').colorbox({
+			rel: '{$ id $}'
+		});
+	});
+</script>
+
+{% block items %}
+	<div class="items">
+		{% for item in config.items|default([]) if item.active|default(false) and item.image|default('') %}
+			{% block item %}
+				<a
+					class="item {$ id $}"
+					href="/site/data/images/{$ config.image_size|default('large') $}/{$ item.image $}"
+					target="_blank"
+					{% if item.label|default('') %}
+						title="{$ item.label $}"
+					{% endif %}
+				>
+					{% block image %}
+						<img
+							{% if item.label|default('') %}
+								alt="{$ item.label $}"
+							{% endif %}
+							src="/site/data/images/{$ config.preview_size|default('small') $}/{$ item.image $}"
+						>
+					{% endblock %}
+				</a>
+			{% endblock %}
+		{% endfor %}
+	</div>
+{% endblock %}

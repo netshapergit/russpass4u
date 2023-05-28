@@ -1,0 +1,21 @@
+{% extends '_.admin.file' %}
+
+{% block link %}
+
+	<span class="preview">
+		<img class="inner-width" ng-src="/site/theme/images/{{ file.id }}">
+	</span>
+
+	{$ parent() $}
+
+{% endblock %}
+
+{% block fields %}
+
+	<div class="form-group">
+		<div class="col-sm-12">
+			<img class="inner-width" ng-src="/site/theme/images/{{ item.id }}">
+		</div>
+	</div>
+
+{% endblock %}

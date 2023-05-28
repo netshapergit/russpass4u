@@ -1,0 +1,93 @@
+.page {
+	overflow-x: hidden;
+	position: relative;
+}
+
+.block {
+	position: relative;
+}
+
+.inner {
+	position: relative;
+}
+
+.grid {
+	/*overflow-x: hidden;*/
+	position: relative;
+}
+
+.grid-cover {
+	margin-left: -0;
+	margin-right: -0;
+	position: relative;
+}
+
+.grid-cascade {
+	display: table;
+	position: relative;
+	width: 100%;
+}
+
+.grid-row {
+	display: table-row;
+	position: relative;
+}
+
+.grid-col {
+	display: table-cell;
+	padding-left: 0;
+	padding-right: 0;
+	position: relative;
+	vertical-align: top;
+}
+
+.module {
+	position: relative;
+}
+
+.module-body:before,
+.module-body:after {
+	clear: both;
+	content: '';
+	display: block;
+}
+
+img {
+	max-width: 100%;
+}
+
+p {
+	margin: 0;
+}
+
+p + p {
+	margin-top: 10px;
+}
+
+ul.nav li.dropdown > ul.dropdown-menu {
+	margin: 0;
+}
+
+ul.nav li.dropdown:hover > ul.dropdown-menu {
+	display: block;
+}
+
+a.cboxElement {
+	display: inline-block;
+	margin: 0 10px 10px 0;
+}
+
+@media (max-width: 767px) {
+	.grid-cascade {
+		display: block;
+	}
+
+	.grid-row {
+		display: block;
+	}
+
+	.page .grid-row > .grid-col {
+		display: block;
+		width: 100%;
+	}
+}

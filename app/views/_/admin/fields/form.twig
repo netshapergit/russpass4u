@@ -1,0 +1,36 @@
+{% extends '_.admin.form' %}
+
+{% block fields %}
+
+	<div class="row" ng-controller="NetShaperAdminFormFieldsController">
+
+		<div class="col-sm-6">
+
+			{% block fields_left %}
+
+				<div class="row">
+					<div class="col-sm-4">
+						<ns-integer alias="id" disabled item="item" label="ID" ng-show="item.id" size="6"></ns-integer>
+					</div>
+					<div class="col-sm-8">
+						<ns-option alias="field_type_id" item="item" label="Тип поля" options="list.fieldTypes" size="9"></ns-option>
+					</div>
+				</div>
+
+				<ns-string alias="alias" item="item" label="Алиас"></ns-string>
+
+				<ns-string alias="name" item="item" label="Название"></ns-string>
+
+			{% endblock %}
+
+		</div>
+
+		<div class="col-sm-6">
+
+			{% block fields_right %}{% endblock %}
+
+		</div>
+
+	</div>
+
+{% endblock %}

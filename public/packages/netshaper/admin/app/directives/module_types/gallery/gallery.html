@@ -1,0 +1,35 @@
+<div class="row">
+	<div class="col-sm-6">
+		<ns-option alias="config[gallery][preview_size]" item="config" label="Размер превью" options="list.custom.gallery.imageSizes" property="preview_size" size="8"></ns-option>
+	</div>
+	<div class="col-sm-6">
+		<ns-option alias="config[gallery][image_size]" item="config" label="Размер изображения" options="list.custom.gallery.imageSizes" property="image_size" size="8"></ns-option>
+	</div>
+</div>
+
+<hr>
+
+<div ng-repeat="item in config.items">
+
+	<div class="row">
+		<div class="col-sm-6">
+			<ns-checkbox alias="{{ getAlias($index, 'active') }}" item="item" label="Активно" size="8" property="active"></ns-checkbox>
+		</div>
+		<div class="col-sm-6">
+			<div class="pull-right">
+				<ns-list-item-controls index="{{ $index }}" items="config.items"></ns-list-item-controls>
+			</div>
+		</div>
+	</div>
+
+	<ns-image alias="{{ getAlias($index, 'image') }}" item="item" label="Изображение" property="image"></ns-image>
+
+	<ns-string alias="{{ getAlias($index, 'label') }}" item="item" label="Подпись" property="label"></ns-string>
+
+	<hr>
+
+</div>
+
+<div class="pull-right">
+	<ns-list-controls create="create" items="config.items"></ns-list-controls>
+</div>

@@ -1,0 +1,14 @@
+<div class="form-group">
+	<div class="col-sm-offset-{{ 12 - size }} col-sm-{{ size }}">
+		<div class="checkbox">
+
+			<input class="display-none" name="{{ alias }}" ng-model="item[property]" type="text">
+
+			<label>
+				<input id="{{ alias }}" ng-disabled="disabled" ng-false-value="" ng-model="item[property]" ng-true-value="1" type="checkbox">
+				<span ng-bind="label"></span>
+			</label>
+
+		</div>
+	</div>
+</div>

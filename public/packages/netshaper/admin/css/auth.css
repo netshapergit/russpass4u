@@ -1,0 +1,36 @@
+body {
+	background: #ecf0f1;
+}
+
+#login {
+	border-width: 0;
+	box-shadow: #ccc 0 0 7px;
+	margin: 150px auto 20px;
+	width: 300px;
+}
+
+#login .panel-heading {
+	/* TODO use SCSS */
+	background: -moz-linear-gradient(#35587c, #2c3e50);
+	/* FF 3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #35587c), color-stop(100%, #2c3e50));
+	/* Safari 4+, Chrome 2+ */
+	background: -webkit-linear-gradient(#35587c, #2c3e50);
+	/* Safari 5.1+, Chrome 10+ */
+	background: -o-linear-gradient(#35587c, #2c3e50);
+	/* Opera 11.10 */
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#35587c', endColorstr='#2c3e50');
+	/* IE6 & IE7 */
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#35587c', endColorstr='#2c3e50')";
+	/* IE8+ */
+	background: linear-gradient(#35587c, #2c3e50);
+	/* the standard */
+
+	padding-top: 8px;
+}
+
+#login .panel-heading h4 {
+	margin-bottom: 6px;
+	margin-left: 5px;
+	margin-top: 14px;
+}

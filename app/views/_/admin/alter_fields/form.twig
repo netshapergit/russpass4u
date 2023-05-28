@@ -1,0 +1,10 @@
+{% extends '_.admin.fields.form' %}
+
+{% block fields_right %}
+
+	{$ parent() $}
+
+	<ns-options alias="selects" item="item" label="Справочники" ng-show="needsSelects()" options="list.selects"></ns-options>
+	<ns-options alias="layouts" item="item" label="Макеты" ng-show="needsLayouts()" options="list.layouts"></ns-options>
+
+{% endblock %}

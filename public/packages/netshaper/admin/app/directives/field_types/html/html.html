@@ -1,0 +1,4 @@
+<ns-form-group alias="{{ alias }}" label="{{ label }}" size="{{ size }}">
+	<textarea class="display-none" id="{{ alias }}" name="{{ alias }}" ng-model="item[property]"></textarea>
+	<div ng-disabled="disabled" ns-wysiwyg="{{ item[property] }}" rel="{{ alias }}"></div>
+</ns-form-group>

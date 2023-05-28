@@ -1,0 +1,27 @@
+{% set alias = position.alias|default('none') %}
+<div class="block position-{$ alias $}">
+	<div class="inner position-{$ alias $}">
+		<div class="grid position-{$ alias $}">
+			<div class="grid-cover position-{$ alias $}">
+				<div class="grid-cascade position-{$ alias $}">
+					<div class="grid-row position-{$ alias $}">
+						{% for subPosition in position.sub_positions|default([]) %}
+							<div class="grid-col position-{$ subPosition.alias|default('none') $}">
+								{% for grandSubPosition in subPosition.sub_positions|default([]) %}
+									{% include '_.grid' with { 'position': grandSubPosition } %}
+								{% endfor %}
+								{% for module in subPosition.modules|default([]) %}
+									{% include '_.grid_module' %}
+								{% endfor %}
+							</div>
+						{% endfor %}
+					</div>
+				</div>
+			</div>
+			{# TODO remove it #}
+			{% for module in position.modules|default([]) %}
+				{% include '_.grid_module' %}
+			{% endfor %}
+		</div>
+	</div>
+</div>

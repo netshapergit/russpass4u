@@ -1,0 +1,32 @@
+<div
+	class="module empty"
+	ng-drop="true"
+	ng-drop-success="onDrop($data, $event, MODULE, {$ positionVar|default('position') $}, module)"
+	ng-repeat-start="module in {$ positionVar|default('position') $}.modules"
+></div>
+<div
+	class="module filled"
+	ng-class="{
+		inactive: module !== edited && module.active !== '1',
+		selected: module === edited
+	}"
+	ng-repeat-end
+>
+	<span
+		class="label label-info drag"
+		ng-drag="true"
+		ng-drag-data="module"
+		ng-drag-success="onDrag($data, $event, MODULE, {$ positionVar|default('position') $})"
+	>
+		<span ng-bind="module.name" ng-show="module.name"></span>
+		<span ng-bind="module.module_type.name" ng-show="!module.name"></span>
+	</span>
+	<span class="label label-info pointer" ng-click="setUp($event, MODULE, {$ positionVar|default('position') $}, module)">
+		<span class="fa fa-cog"></span>
+	</span>
+</div>
+<div
+	class="module empty target"
+	ng-drop="true"
+	ng-drop-success="onDrop($data, $event, MODULE, {$ positionVar|default('position') $})"
+></div>

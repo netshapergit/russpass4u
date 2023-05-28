@@ -1,0 +1,136 @@
+{#<div class="modal">#}
+	{#<div class="modal-dialog">#}
+		<div class="modal-content settings" ng-show="edited" role="dialog">
+			<div class="modal-header">
+				<button class="close" ng-click="setUp()">
+					&times;
+				</button>
+				<h4 class="modal-title">
+					<span class="fa fa-cog"></span>
+					<span ng-show="mode === ROW">Ряд</span>
+					<span ng-show="mode === COL">Позиция</span>
+					<span ng-bind="edited.module_type.name" ng-show="mode === MODULE"></span>
+				</h4>
+			</div>
+			<div class="modal-body">
+				<form class="form-horizontal">
+					<div ng-show="mode === ROW || mode === COL">
+						<div class="row">
+							<div class="col-sm-6">
+								<ns-checkbox alias="active" item="edited" label="Активен" size="8"></ns-checkbox>
+							</div>
+						</div>
+						<ns-string alias="alias" ng-disabled="isManager()" item="edited" label="Алиас"></ns-string>
+					</div>
+					<div ng-show="mode === MODULE">
+
+						<div class="row">
+							<div class="col-sm-4">
+								<ns-integer alias="id" disabled item="edited" label="ID" ng-show="edited.id" size="6"></ns-integer>
+							</div>
+						</div>
+
+						<div class="row">
+							{#<div class="col-sm-6">#}
+								{#<ns-option alias="module_type_id" item="edited" label="Тип модуля" options="list.moduleTypes" size="8"></ns-option>#}
+							{#</div>#}
+							<div class="col-sm-6" ng-show="moduleTypeLayouts.length > 0">
+								<ns-option
+									alias="module_type_layout_id"
+									empty
+									item="edited"
+									label="Макет модуля"
+									options="moduleTypeLayouts"
+									size="8"
+								></ns-option>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-sm-8">
+								<ns-text alias="name" item="edited" label="Название" size="9"></ns-text>
+							</div>
+							<div class="col-sm-4">
+								<ns-checkbox alias="show_name" item="edited" label="Заголовок" size="12"></ns-checkbox>
+							</div>
+						</div>
+
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								Видимость
+							</div>
+							<div class="panel-body">
+								<div class="row">
+									<div class="col-sm-6">
+										<ns-option alias="access_level" item="edited" label="Доступ" options="list.accessLevels" size="8"></ns-option>
+									</div>
+									<div class="col-sm-6">
+										<ns-checkbox alias="active" item="edited" label="Модуль активен" size="8"></ns-checkbox>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								Отображение
+							</div>
+							<div class="panel-body">
+								<div class="row">
+									<div class="col-sm-6">
+										<ns-option alias="bind_layouts" item="edited" label="Макеты" options="list.binds" size="8"></ns-option>
+									</div>
+									<div class="col-sm-6">
+										<ns-option alias="bind_pages" item="edited" label="Страницы" options="list.binds" size="8"></ns-option>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-sm-offset-2 col-sm-10">
+										<p class="small text-muted" ng-switch="edited.bind_layouts + '_' + edited.bind_pages">
+											<span ng-show="edited.bind_layouts && edited.bind_pages">Модуль будет показан</span>
+											<span ng-switch-when="all_all">на всех страницах</span>
+											<span ng-switch-when="all_except">на всех страницах, кроме выбранных</span>
+											<span ng-switch-when="all_for">только на выбранных страницах</span>
+											<span ng-switch-when="except_all">на всех страницах, кроме выбранных макетов</span>
+											<span ng-switch-when="except_except">на всех страницах, кроме выбранных макетов, и кроме выбранных страниц</span>
+											<span ng-switch-when="except_for">на всех страницах, кроме выбранных макетов, и на выбранных страницах (любых макетов)</span>
+											<span ng-switch-when="for_all">только на страницах выбранных макетов</span>
+											<span ng-switch-when="for_except">на страницах выбранных макетов, кроме выбранных страниц</span>
+											<span ng-switch-when="for_for">на страницах выбранных макетов и на выбранных страницах (любых макетов)</span>
+										</p>
+									</div>
+								</div>
+								<ns-options alias="layoutIds" item="edited" label="Макеты" ng-show="showBinding(edited.bind_layouts)" options="list.layouts"></ns-options>
+								<ns-options alias="pageIds" item="edited" label="Страницы" ng-show="showBinding(edited.bind_pages)" pages="list.pages"></ns-options>
+							</div>
+						</div>
+
+						<ns-incognito-module-type
+							config="editedConfig"
+							module-type="{{ moduleType.alias }}"
+							ng-repeat="moduleType in list.moduleTypes"
+							ng-show="moduleType.id === edited.module_type_id"
+						></ns-incognito-module-type>
+
+						<div class="clearfix"></div>
+
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-warning btn-sm" ng-click="split(edited)" ng-show="mode === ROW || mode === COL">
+					<span class="fa fa-th-large"></span>
+					Разделить
+				</button>
+				<button
+					class="btn btn-danger btn-sm"
+					ng-click="remove(mode, edited)"
+					ng-show="mode === MODULE || !edited.alias || !isManager()"
+				>
+					<span class="fa fa-o-trash"></span>
+					Удалить
+				</button>
+			</div>
+		</div>
+	{#</div>#}
+{#</div>#}

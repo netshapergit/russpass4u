@@ -1,0 +1,35 @@
+{% set id = 'plan_' ~ random() %}
+
+<script src="/packages/kinetic/5.1.0/kinetic.min.js"></script>
+<script src="/packages/netshaper/site/js/classes/plan.js"></script>
+
+<script>
+	$(function() {
+		new NetShaperPlan('{$ id $}', {$ config|json_encode|raw $});
+	});
+</script>
+
+
+<div id="{$ id $}" style="position: relative;">
+	<div id="{$ id $}_canvas"></div>
+	<div
+		data-animation="false"
+		data-content=""
+		data-html="true"
+		data-placement="top"
+		data-template="
+			<div
+				class=&quot;popover&quot;
+				role=&quot;tooltip&quot;
+			>
+				<div class=&quot;arrow&quot;></div>
+				<div class=&quot;popover-title&quot;></div>
+				<div class=&quot;popover-content&quot;></div>
+			</div>
+		"
+		data-toggle="popover"
+		id="{$ id $}_popover"
+		style="position: absolute; left: 0; top: 0;"
+		title=""
+	></div>
+</div>

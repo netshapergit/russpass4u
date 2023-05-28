@@ -1,0 +1,147 @@
+{% extends '_.user.base' %}
+
+{% block content %}
+<div style=" background:#fff; padding:20px;">
+	<form
+		action="{$ url.user $}/{$ request.segments[1] $}/mass_update"
+		method="post"
+		ng-controller="NetShaperAdminListPagesController"
+	>
+
+		<input name="_method" type="hidden" value="put">
+
+		<div class="display-none" ng-repeat="item in changed">
+			<input name="items[{{ item.page.id }}][order]" ng-model="item.order" type="text">
+		</div>
+
+		<div class="pull-right">
+Чтобы создать страницу, нажмите 
+			<a class="btn btn-success btn-sm" ng-href="{{ url.user }}/{{ request.segments[1] }}/create" ng-show="actions.create && changed.length === 0">
+				<span class="fa fa-plus"></span>
+				Создать
+			</a>
+
+			<a class="btn btn-warning btn-sm" ng-href="{{ url.user }}/{{ request.segments[1] }}" ng-show="changed.length > 0">
+				<span class="fa fa-reply"></span>
+				Отменить
+			</a>
+
+			<button class="btn btn-primary btn-sm" id="save_button" ng-show="changed.length > 0" type="submit">
+				<span class="fa fa-save"></span>
+				Сохранить
+			</button>
+
+		</div>
+
+		<h3 ng-bind="text.listHeader"></h3>
+
+		<hr>
+
+		<table class="table table-condensed table-hover">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<!--<th>Порядок</th>-->
+					<th></th>
+					
+					<th>Заголовок</th>
+					<th>Макет</th>
+					<!--
+					<th>Уровень</th>
+					-->
+					<th>Доступ</th>
+					<th>Активна</th>
+					<!--<th>Путь</th>	-->
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-class="{warning: isChanged(item)}" ng-repeat="item in items" ng-show="!isCollapsed(item.page.parent_page_id)">
+					<td ng-bind="item.page.id"></td>
+					<!--
+					<td>
+						<span ng-repeat="i in []|range:item.level - 1" style="display: inline-block; width: 20px;"></span>
+						<span
+							class="fa fa-arrow-up pointer text-primary"
+							ng-class="{invisible: item.level <= 0 || isFirst(item)}"
+							ng-click="up($index)"
+						></span>
+						<span ng-bind="item.page.order"></span>
+						<span
+							class="fa fa-arrow-down pointer text-primary"
+							ng-class="{invisible: item.level <= 0 || isLast(item)}"
+							ng-click="down($index)"
+						></span>
+					</td>
+					-->
+					<td>
+						<span
+							class="fa fa-minus pointer text-primary"
+							ng-click="collapse(item.page.id)"
+							ng-show="item.page.parent_page_id && !isCollapsed(item.page.id) && item.page.sub_pages.length > 0"
+						></span>
+						<span
+							class="fa fa-plus pointer text-primary"
+							ng-click="expand(item.page.id)"
+							ng-show="item.page.parent_page_id && isCollapsed(item.page.id) && item.page.sub_pages.length > 0"
+						></span>
+						
+					</td>
+					
+					<td>
+						<span ng-repeat="i in []|range:item.level" style="display: inline-block; width: 20px;"></span>
+						<span ng-bind="item.page.sub_pages.length" ng-show="item.page.sub_pages.length > 0"></span>
+						<span class="fa fa-file-text text-primary" ng-show="item.page.sub_pages.length > 0"></span>
+						<a ng-href="{{ url.user }}/{{ request.segments[1] }}/{{ item.page.id }}" ng-show="actions.edit">
+							<span ng-bind="item.page.title"></span>
+						</a>
+					</td>
+					<td class="text-muted" ng-bind="item.page.layout.name"></td>
+					<!--<td>
+						<span ng-show="item.level == 0"><span ng-bind="item.page.title" class="title_level_0"></span></span>
+						<span ng-show="item.level == 1"><span ng-bind="item.page.title" class="title_level_1"></span></span>
+						<span ng-show="item.level == 2"><span ng-bind="item.page.title" class="title_level_2"></span></span>
+						<span ng-show="item.level == 3"><span ng-bind="item.page.title" class="title_level_3"></span></span>
+					</td>-->
+					
+					<!--
+					<td>
+						<span ng-bind="item.level" ng-show="item.level >= 0"></span>
+					</td>
+					-->
+					<td ng-bind="accessLevels[item.page.access_level]"></td>
+					<td>
+						<span class="fa fa-check-square-o text-success" ng-show="item.page.active"></span>
+						<span class="fa fa-square-o text-danger" ng-show="item.page.active == 0"></span>
+					</td>
+					
+					<!--
+					<td>
+						<span ng-show="item.level >= 0">
+							<span
+								class="text-muted"
+								ng-bind="item.page.parent_page.path"
+								ng-show="item.page.parent_page && (item.page.parent_page.path !== '/' || !item.page.alias)"
+								style="margin-right: 3px;"
+							></span><a
+								ng-href="{{ item.page.path }}"
+								ng-show="!item.page.parent_page_id || item.page.alias"
+								target="_blank"
+							>/<span ng-bind="item.page.alias"></span></a>
+						</span>
+					</td>
+					-->
+					
+					<td>
+						<a ng-href="{{ url.user }}/{{ request.segments[1] }}/{{ item.page.id }}" ng-show="actions.edit">
+							<span class="fa fa-pencil"></span>
+						</a>
+					</td>
+					
+				</tr>
+			</tbody>
+		</table>
+
+	</form>
+</div>
+{% endblock %}

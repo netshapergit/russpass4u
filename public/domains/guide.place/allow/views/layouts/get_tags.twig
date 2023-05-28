@@ -1,0 +1,116 @@
+{% set homepage = page %}
+{% set index = page %}
+{% set check = true %}
+{% for items in 1..10 if check %}
+	{% if index.parent_page|length > 0 %}
+		{% set index = index.parent_page %}
+		{% set homepage = index %}
+	{% else %}
+		{% set check = false %}
+	{% endif %}
+{% endfor %}	
+
+{% set items = [] %}
+
+{% for subpage1 in homepage.active_sub_pages %}
+		{% set items = items|merge([subpage1]) %}
+	{% if subpage1.active_sub_pages|length > 0 %}
+		{% for subpage2 in subpage1.active_sub_pages %}
+				{% set items = items|merge([subpage2]) %}
+			{% if subpage2.active_sub_pages|length > 0 %}
+				{% for subpage3 in subpage2.active_sub_pages %}
+						{% set items = items|merge([subpage3]) %}
+					{% if subpage3.active_sub_pages|length > 0 %}
+						{% for subpage4 in subpage3.active_sub_pages %}
+								{% set items = items|merge([subpage4]) %}
+							{% if subpage4.active_sub_pages|length > 0 %}
+								{% for subpage5 in subpage4.active_sub_pages %}
+										{% set items = items|merge([subpage5]) %}
+									{% if subpage5.active_sub_pages|length > 0 %}
+										{% for subpage6 in subpage5.active_sub_pages %}
+												{% set items = items|merge([subpage6]) %}
+										{% endfor %}
+									{% endif %}
+								{% endfor %}
+							{% endif %}
+						{% endfor %}
+					{% endif %}
+				{% endfor %}
+			{% endif %}
+		{% endfor %}
+	{% endif %}
+{% endfor %}
+
+
+
+{% set curItems = [] %}
+{% set curLayouts = [53, 51, 22, 17, 24, 49, 50, 52] %}
+
+{% for item in items %}
+	{% if item.layout_id in curLayouts %}
+		{% set curItems = curItems|merge([item]) %}
+	{% endif %}
+{% endfor %}
+
+{% set items = curItems %}
+
+{% set uniqResults = [] %}
+{% set uniqIDs = [] %}
+
+{% if items|length > 0 %}
+	{% for item in items %}
+		{% if item.id not in uniqIDs %}
+			{% set uniqResults = uniqResults|merge([item]) %}
+			{% set uniqIDs = uniqIDs|merge([item.id]) %}
+		{% endif %}
+	{% endfor %}
+{% endif %}
+
+{% set items = uniqResults %}
+
+{% set tagsCloud = [] %}
+
+{% for item in items %}
+
+	{% if item.field_header|lower|trim not in tagsCloud %}
+		{% set tagsCloud = tagsCloud|merge([item.field_header|lower|trim]) %}
+	{% endif %}
+
+	{% if item.field_tags %}
+		{% set itemTags = item.field_tags|split(',') %}
+		{% if itemTags|length > 0 %}
+			{% for itemTag in itemTags %}
+				{% set preparedItemTag = itemTag|lower|trim %}
+				{% if (preparedItemTag|length > 0) and (preparedItemTag not in tagsCloud) %} 
+					{% set tagsCloud = tagsCloud|merge([preparedItemTag]) %}
+				{% endif %}
+			{% endfor %}
+		{% endif %}
+	{% endif %}
+
+	{#
+	{% if item.field_filters %}
+		{% set itemFilters = item.field_filters|split(';') %}
+		{% if itemFilters|length > 0 %}
+			{% for filter in itemFilters %}
+				{% set itemParsedFilter = filter|split(':') %}
+				{% set itemParsedFilterValues = itemParsedFilter[1]|split(',') %}
+				{% for value in itemParsedFilterValues %}
+					{% if (value|lower|trim|length > 0) and (value|lower|trim not in tagsCloud) %}
+						{% set tagsCloud = tagsCloud|merge([value|lower|trim]) %}
+					{% endif %}
+				{% endfor %}
+			{% endfor %}
+		{% endif %}
+	{% endif %}
+	#}
+
+{% endfor %}
+
+{$ tagsCloud|json_encode|raw $}
+
+{#
+{% for tag in tagsCloud %}
+	{$ tag $}<br>
+{% endfor %}
+#}

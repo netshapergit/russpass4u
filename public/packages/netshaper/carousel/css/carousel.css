@@ -1,0 +1,41 @@
+.ns-carousel {
+	position: relative;
+}
+
+.ns-carousel .ns-hole {
+	overflow: hidden;
+}
+
+.ns-carousel .ns-line {
+	position: relative;
+}
+
+.ns-carousel .ns-line:after {
+	clear: both;
+	content: '';
+	display: block;
+}
+
+.ns-carousel .ns-item {
+	float: left;
+}
+
+.ns-carousel .ns-item > img {
+	display: block;
+}
+
+.ns-carousel .ns-arrow {
+	cursor: pointer;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	width: 50%;
+}
+
+.ns-carousel .ns-arrow.ns-left {
+	left: 0;
+}
+
+.ns-carousel .ns-arrow.ns-right {
+	right: 0;
+}

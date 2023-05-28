@@ -1,0 +1,46 @@
+<li class="
+	{% if not item.external|default(false) and item.page|default(null) %}
+		{% if request.path == item.page.path or item.page.alias and request.path starts with item.page.path %}active{% endif %}
+		{% if request.path == item.page.path %}current{% endif %}
+	{% endif %}
+	{% if item.items|default([])|length > 0 %}dropdown{% endif %}
+">
+	{% if config.nested|default(false) and item.items|default([])|length > 0 %}
+		<a
+			class="dropdown-toggle"
+			{# data-toggle="dropdown" #}
+			{% if not item.external|default(false)
+				and item.page|default(null)
+				and item.page.active
+			%}
+				href="{$ item.page.path $}"
+			{% endif %}
+		>
+			{% if item.label|default('') %}
+				{$ item.label $}
+			{% elseif not item.external|default(false)
+				and item.page|default(null)
+				and item.page.active
+			%}
+				{$ item.page.title $}
+			{% endif %}
+			<span class="caret"></span>
+		</a>
+		<ul class="dropdown-menu" role="menu">
+			{% for item in item.items if item.active|default(false) %}
+				{% include '_.module_types.menu.item' %}
+			{% endfor %}
+		</ul>
+	{% elseif item.external|default(false) and item.url|default('') %}
+		<a href="{$ item.url $}" target="_blank">
+			{$ item.label|default(item.url) $}
+		</a>
+	{% elseif not item.external|default(false)
+		and item.page|default(null)
+		and item.page.active
+	%}
+		<a href="{$ item.page.path $}">
+			{$ item.label|default(item.page.title) $}
+		</a>
+	{% endif %}
+</li>

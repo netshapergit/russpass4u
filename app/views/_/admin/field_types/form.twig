@@ -1,0 +1,56 @@
+{% extends '_.admin.form' %}
+
+{% block fields %}
+
+	<div class="row">
+
+		<div class="col-sm-6">
+
+			<div class="row">
+				<div class="col-sm-4">
+					<ns-integer alias="id" disabled item="item" label="ID" size="6"></ns-integer>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-sm-6">
+					<ns-string alias="database_type" disabled item="item" label="Тип в БД" size="8"></ns-string>
+				</div>
+				<div class="col-sm-6">
+					<ns-string alias="relationship" disabled item="item" label="Связь" size="8"></ns-string>
+				</div>
+			</div>
+
+		</div>
+
+		<div class="col-sm-6">
+
+			<div class="row">
+				<div class="col-sm-3">
+					<ns-checkbox alias="active_page" item="item" label="Страницы" size="12"></ns-checkbox>
+				</div>
+				<div class="col-sm-3">
+					<ns-checkbox alias="active_forme" item="item" label="Формы" size="12"></ns-checkbox>
+				</div>
+				<div class="col-sm-3">
+					<ns-checkbox alias="active_user" item="item" label="Пользователи" size="12"></ns-checkbox>
+				</div>
+				<div class="col-sm-3">
+					<ns-checkbox alias="active_setting" item="item" label="Настройки" size="12"></ns-checkbox>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-sm-6">
+					<ns-string alias="alias" disabled item="item" label="Алиас" size="8"></ns-string>
+				</div>
+				<div class="col-sm-6">
+					<ns-string alias="name" item="item" label="Название" size="8"></ns-string>
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+
+{% endblock %}

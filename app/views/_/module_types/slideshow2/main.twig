@@ -1,0 +1,68 @@
+{% set id = 'slideshow2_' ~ random() %}
+
+<link rel="stylesheet" href="/packages/owl-carousel/2.0.0-beta.2.4/assets/owl.carousel.css">
+<link rel="stylesheet" href="/packages/owl-carousel/2.0.0-beta.2.4/assets/owl.theme.default.min.css">
+<script src="/packages/owl-carousel/2.0.0-beta.2.4/owl.carousel.min.js"></script>
+
+<script>
+	$(function() {
+		$('#{$ id $}').owlCarousel({
+			autoplay: true,
+			autoplayHoverPause: true,
+			autoplayTimeout: {$ config.interval|default(3) * 1000 $},
+			dots: {% if config.bullets|default(false) %}true{% else %}false{% endif %},
+			items: 1,
+			loop: true,
+			nav: {% if config.arrows|default(false) %}true{% else %}false{% endif %},
+			navText: ['', '']
+		});
+	});
+</script>
+
+<div id="{$ id $}">
+	{% for item in config.items|default([]) if item.active|default(false) %}
+		<div class="slide">
+
+			{% if item.has_target|default(false) %}
+				{% if item.external|default(false) and item.url|default('') %}
+					<a href="{$ item.url $}" target="_blank">
+				{% elseif not item.external|default(false) and item.page|default(null) %}
+					<a href="{$ item.page.path $}">
+				{% endif %}
+			{% endif %}
+
+			{% if item.image|default('') %}
+				<div class="image">
+					<img src="/site/data/images/{$ config.image_size|default('large') $}/{$ item.image $}">
+				</div>
+			{% endif %}
+
+			{% if item.header|default('') or item.description|default('') %}
+				<div class="caption">
+
+					{% if item.header|default('') %}
+						<div class="header">
+							{$ item.header $}
+						</div>
+					{% endif %}
+
+					{% if item.description|default('') %}
+						<div class="description">
+							{$ item.description $}
+						</div>
+					{% endif %}
+
+				</div>
+			{% endif %}
+
+			{% if item.has_target|default(false) %}
+				{% if item.external|default(false) and item.url|default(false) %}
+					</a>
+				{% elseif not item.external|default(false) and item.page|default(null) %}
+					</a>
+				{% endif %}
+			{% endif %}
+
+		</div>
+	{% endfor %}
+</div>

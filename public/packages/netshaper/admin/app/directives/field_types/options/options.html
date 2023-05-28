@@ -1,0 +1,66 @@
+<ns-form-group alias="{{ alias }}" label="{{ label }}" size="{{ size }}">
+
+	<input name="{{ alias }}" type="hidden">
+
+	<div class="display-none" ng-repeat="option in selected">
+		<input name="{{ alias }}[]" type="hidden" value="{{ option.id }}">
+		<input name="pivot_{{ alias }}[{{ option.id }}][order]" ng-disabled="!order" type="hidden" value="{{ getIndex(option) + 1 }}">
+		<input name="pivot_{{ alias }}[{{ option.id }}][required]" ng-disabled="!require" type="hidden" value="{{ isRequired(option) ? '1' : '' }}">
+	</div>
+
+	<div class="row">
+		<div ng-class="{
+			'col-sm-5': order,
+			'col-sm-6': !order
+		}">
+			<h6>Доступно</h6>
+			<ul class="list-group auto-height" ng-show="selected.length < available.length">
+				<li class="list-group-item" ng-repeat="option in available" ng-show="!isSelected(option)">
+					<a class="pointer" ng-bind="getLabel(option)" ng-click="attach(option)" ng-show="!disabled"></a>
+					<span class="text-muted" ng-bind="getLabel(option)" ng-show="disabled"></span>
+				</li>
+			</ul>
+			<p class="text-muted" ng-show="selected.length === available.length">
+				<small>Выбраны все доступные</small>
+			</p>
+		</div>
+		<div ng-class="{
+			'col-sm-7': order,
+			'col-sm-6': !order
+		}">
+			<h6>Выбрано</h6>
+			<ul class="list-group auto-height" ng-show="selected.length > 0">
+				<li class="list-group-item" ng-repeat="option in selected">
+					<a class="pointer" ng-bind="getLabel(option)" ng-click="detach(option)" ng-show="!disabled"></a>
+					<span class="text-muted" ng-bind="getLabel(option)" ng-show="disabled"></span>
+					<div class="pull-right" ng-show="!disabled">
+						<span
+							class="fa fa-arrow-up text-primary pointer"
+							ng-class="{invisible: isFirst(option)}"
+							ng-click="up(option)"
+							ng-show="order"
+						></span>
+						<span
+							class="fa fa-arrow-down text-primary pointer"
+							ng-class="{invisible: isLast(option)}"
+							ng-click="down(option)"
+							ng-show="order"
+						></span>
+						<span
+							class="fa fa-asterisk text-muted pointer"
+							ng-class="{'text-danger': isRequired(option)}"
+							ng-click="setRequired(option, !isRequired(option))"
+							ng-show="require"
+							title="Обязательно"
+						></span>
+					</div>
+					<div class="clearfix"></div>
+				</li>
+			</ul>
+			<p class="text-muted" ng-show="selected.length === 0">
+				<small>Нет выбранных</small>
+			</p>
+		</div>
+	</div>
+
+</ns-form-group>

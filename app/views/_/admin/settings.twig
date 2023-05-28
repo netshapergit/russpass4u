@@ -1,0 +1,32 @@
+{% extends '_.admin.base' %}
+
+{% block content %}
+
+	<form
+		{# TODO getFormAction() #}
+		action="{$ url.admin $}/{$ request.segments[1] $}/"
+		class="form-horizontal"
+		method="post"
+	>
+
+		<input name="_method" type="hidden" value="put">
+
+		<div class="pull-right">
+			<button class="btn btn-primary btn-sm" id="save_button" type="submit">
+				<span class="fa fa-save"></span>
+				Сохранить
+			</button>
+		</div>
+
+		<h3>
+			<span ng-bind="'Настройки'"></span>
+			<span ng-bind="text.formHeader" ng-show="text.formHeader"></span>
+		</h3>
+
+		<hr>
+
+		{% block fields %}{% endblock %}
+
+	</form>
+
+{% endblock %}

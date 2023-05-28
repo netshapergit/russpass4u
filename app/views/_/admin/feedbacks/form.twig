@@ -1,0 +1,64 @@
+{% extends '_.admin.form' %}
+
+{% block fields %}
+
+	<div class="row">
+
+		<div class="col-sm-6">
+
+			<div class="row">
+				<div class="col-sm-4">
+					<ns-integer alias="id" disabled item="item" label="ID" size="6"></ns-integer>
+				</div>
+				<div class="col-sm-4"></div>
+				<div class="col-sm-4">
+					<ns-checkbox alias="sent" disabled item="item" label="Отправлено" size="12"></ns-checkbox>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-sm-6">
+					<ns-option alias="user_id" disabled item="item" key="login" label="Пользователь" options="list.users" size="8"></ns-option>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-sm-6">
+					<ns-option alias="forme_id" disabled item="item" label="Форма" options="list.formes" size="8"></ns-option>
+				</div>
+				<div class="col-sm-6">
+					<ns-page alias="page_id" disabled item="item" label="Страница" pages="list.pages" size="8"></ns-page>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-sm-6">
+					<ns-datetime alias="created_at" disabled item="item" label="Дата" size="8"></ns-datetime>
+				</div>
+				<div class="col-sm-6">
+					<ns-string alias="ip" disabled item="item" label="IP" size="8"></ns-string>
+				</div>
+			</div>
+
+			<ns-text alias="useragent" disabled item="item" label="Браузер"></ns-text>
+
+			<ns-text alias="note" item="item" label="Заметка"></ns-text>
+
+		</div>
+
+		<div class="col-sm-6">
+			<ns-incognito
+				alias="field_{{ field.alias }}"
+				disabled
+				field-type="{{ field.field_type.alias.replace('pages', 'options') }}"
+				item="item"
+				label="{{ field.name }}"
+				layouts="field.layouts"
+				selects="field.selects"
+				ng-repeat="field in item.forme.fields"
+			></ns-incognito>
+		</div>
+
+	</div>
+
+{% endblock %}

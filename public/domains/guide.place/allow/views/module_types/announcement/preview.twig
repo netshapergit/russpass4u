@@ -1,0 +1,101 @@
+{% extends '_.module_types.announcement.rows' %}
+
+{% block item %}
+	<div class="media-body blog">
+		{% if item.parent_page.field_header|default('') %}
+		<div class="item_category-name">
+			<a href="{$ item.parent_page.field_path $}">{$ item.parent_page.field_header $}</a> 
+		</div>
+		{% endif %}
+		
+	{% if item.field_header|default('') %}
+			<h4 class="media-heading">
+				<a href="{$ item.path $}">{$ item.field_header $}</a>
+			</h4>
+		{% endif %}
+
+	{% if item.field_image|default('') %}
+		
+		<div class="media-img">
+		<a class="pull" href="{$ item.path $}">
+			<div class="icon">
+			<img class="media-object" src="/site/data/images/medium/{$ item.field_image $}">	
+			</div>	
+		</a>
+		
+		</div>
+	{% endif %}
+
+		{% if item.field_summary|default('') %}
+				<p>{$ item.field_summary $}</p>
+		{% endif %}
+		</div>
+
+<!--
+	<script type="text/javascript">(function() {
+  if (window.pluso)if (typeof window.pluso.start == "function") return;
+  if (window.ifpluso==undefined) { window.ifpluso = 1;
+    var d = document, s = d.createElement('script'), g = 'getElementsByTagName';
+    s.type = 'text/javascript'; s.charset='UTF-8'; s.async = true;
+    s.src = ('https:' == window.location.protocol ? 'https' : 'http')  + '://share.pluso.ru/pluso-like.js';
+    var h=d[g]('body')[0];
+    h.appendChild(s);
+  }})();</script>
+<div class="pluso" data-background="transparent" data-options="medium,square,line,horizontal,counter,theme=02" data-services="vkontakte,odnoklassniki,facebook,twitter,google,moimir,email,print" data-url="http://ru.holiday{$ item.path $}" data-title="{$ item.field_header $}" data-description="{$ item.field_summary $}"></div>
+
+
+
+<!--<a href="http://vk.com/share.php?url=http://ru.holiday{$ item.path $}" target="_blank">Поделиться ВКонтакте</a>-->
+
+<div class="social">
+<script type="text/javascript">
+<!--
+//document.write(VK.Share.button());
+document.write(VK.Share.button({url: 'http://ru.holiday{$ item.path $}', title: '{$ item.field_header $}', description:'{$ item.field_summary $}', image:'http://ru.holiday/site/data/images/medium/{$ item.field_image $}' }, {type: 'custom', text: '<i class="fa fa-vk" aria-hidden="true"></i>'})); 
+-->
+</script>	
+
+<a onClick="openWin2()">
+ <i class="fa fa-facebook" aria-hidden="true"></i>
+</a>
+<script><!-- hide
+function openWin2() {
+myWin=open("http://www.facebook.com/sharer.php?u=http://ru.holiday{$ item.path $}","displayWindow","width=520,height=300,left=350,top=170,status=no,toolbar=no,menubar=no");
+}
+// -->
+</script>
+	
+<a href="https://plus.google.com/share?url=http://ru.holiday{$ item.path $}" onclick="javascript:window.open(this.href,
+  '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
+	<i class="fa fa-google-plus" aria-hidden="true"></i>
+</a>	
+		
+<a href="https://twitter.com/intent/tweet?hashtags=ruholiday&amp;original_referer=http://ru.holiday{$ item.path $}&amp;ref_src=twsrc%5Etfw&amp;related=&amp;text={$ item.field_header $}&amp;tw_p=tweetbutton&amp;url=http://ru.holiday{$ item.path $}" target="_blank">
+	<i class="fa fa-twitter" aria-hidden="true"></i>
+</a>
+	
+<a href="http://connect.mail.ru/share?url=http://ru.holiday{$ item.path $}&title={$ item.field_header $}&description={$ item.field_summary $}&imageurl=http://ru.holiday/site/data/images/medium/{$ item.field_image $}">
+	<i class="fa fa-at" aria-hidden="true"></i>
+</a>
+	
+</div>	
+
+<div class="hashtag"> 		
+	{% if item.field_hashtag|default('') %}
+		<a href="http://ru.holiday/search?searchid=2269018&text=%23{$ item.field_hashtag $}&web=0#priceLow=&priceHigh=&categoryId=">#{$ item.field_hashtag $}</a> 
+	{% endif %}
+</div>
+
+<!-- 
+	<div id="vk_like_{$ item.id $}"></div>
+	<script type="text/javascript">
+		VK.init({apiId: 5466329, onlyWidgets: true});
+		VK.Widgets.Like("vk_like_{$ item.id $}", {type: "vertical", pageTitle:"{$ item.field_header $}", pageDescription:"{$ item.field_summary $}" }, {$ item.id $});
+	</script>
+
+	<div class="fb-like" data-href="{$ item.path $}" data-width="24" data-layout="box_count" data-action="like" data-show-faces="true" data-share="false"></div>
+ -->
+	
+
+
+{% endblock %}

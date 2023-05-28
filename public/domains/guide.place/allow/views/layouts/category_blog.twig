@@ -1,0 +1,49 @@
+{% if page.field_header|default('') %}
+	<h1 class="field_header">{$ page.field_header $}</h1>
+{% endif %}
+
+{% if page.active_sub_pages|length > 0 %}
+
+	{% set perPage = 8 %}
+	{% set pageCurrent = request.input.p|default(1) %}
+	{% set pageCount = (page.active_sub_pages|length / perPage)|round(0, 'ceil') %}
+
+	{% set items = page.active_sub_pages.sortBy('order').slice(perPage * (pageCurrent - 1), perPage) %}
+
+<ul class="media-list">
+									
+
+	{% for item in items %}
+
+		
+				
+		<li class="media">
+			{% include 'item_cat_blog' %}
+		</li>
+
+			
+	{% endfor %}
+
+			
+</ul>
+
+										
+	{% if pageCount > 1 %}
+		<div class="text-center">
+			<ul class="pagination">
+				{% for pageNumber in 1..pageCount %}
+					<li
+						{% if pageNumber == pageCurrent %}
+							class="active"
+						{% endif %}
+					>
+						<a href="{$ request.url $}?p={$ pageNumber $}">
+							{$ pageNumber $}
+						</a>
+					</li>
+				{% endfor %}
+			</ul>
+		</div>
+	{% endif %}
+
+{% endif %}

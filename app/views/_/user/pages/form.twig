@@ -1,0 +1,89 @@
+{% extends '_.user.form' %}
+
+{% block buttons %}
+
+	<a class="btn btn-default btn-sm" ng-href="{{ item.path }}" ng-show="{{ item.id }}" target="_blank">
+		<span class="fa fa-eye"></span>
+		Просмотр
+	</a>
+
+{% endblock %}
+
+{% block fields %}
+
+	<div ng-controller="NetShaperAdminFormPagesController">
+
+		<div class="row">
+
+			<div class="col-sm-6">
+
+				<div class="row">
+				<div class="col-sm-6">
+						<ns-checkbox alias="active" default="1" item="item" label="Страница активна" size="8"></ns-checkbox>
+					</div>
+					<div class="col-sm-4">
+						<ns-integer alias="id" disabled item="item" label="ID" ng-show="item.id" size="6"></ns-integer>
+					</div>
+					
+				</div>
+
+				<div class="row">
+				
+					<div class="col-sm-6">
+						<ns-integer alias="user_id"  default="{$ user.id $}" item="item" label="Пользователь" ng-show="ng-hide" size="6"></ns-integer>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-sm-6">
+						<ns-option alias="access_level" default="any" item="item" label="Доступ" ng-show="ng-hide" options="list.accessLevels" size="8"></ns-option>
+					</div>
+					
+				</div>
+
+				<div class="row">
+					<div class="col-sm-6">
+						<ns-string alias="alias" item="item" label="Алиас" size="8"></ns-string>
+					</div>
+					<div class="col-sm-6">
+						<ns-option alias="layout_id" item="item" label="Макет" options="list.layouts" size="8"></ns-option>
+					</div>
+					<div class="col-sm-6">
+						<ns-page alias="parent_page_id" default="1" item="item" label="Верхняя страница" ng-show="ng-hide" layouts="list.pages" size="8"></ns-page>
+					</div>
+					
+				</div>
+
+				<div class="row">
+					
+					<div class="col-sm-4">
+						<ns-integer alias="order" default="0" item="item" label="Порядок" ng-show="ng-hide" size="6"></ns-integer>
+					</div>
+				</div>
+
+				<ns-string alias="title" item="item" label="Заголовок окна"></ns-string>
+<!--
+				<ns-text alias="keywords" item="item" label="Ключевые слова"></ns-text>
+
+				<ns-text alias="description" item="item" label="Описание"></ns-text>
+-->
+			</div>
+
+			<div class="col-sm-6">
+				<ns-incognito
+					alias="field_{{ field.alias }}"
+					field-type="{{ field.field_type.alias.replace('pages', 'options') }}"
+					item="item"
+					label="{{ field.name }}"
+					layouts="field.layouts"
+					ng-repeat="field in list.fields"
+					ng-show="isFieldShown(field)"
+					selects="field.selects"
+				></ns-incognito>
+			</div>
+
+		</div>
+
+	</div>
+
+{% endblock %}

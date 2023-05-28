@@ -1,0 +1,55 @@
+{% if user %}
+	<div class="user">
+		{% block user %}
+			<span class="login">
+				{$ user.login $}
+			</span>
+			<span class="logout">
+				<a href="/auth/logout">Выйти</a>
+			</span>
+		{% endblock %}
+	</div>
+{% else %}
+	{% block form %}
+		<form action="/auth/login" class="form-horizontal" method="post">
+			{% block notification %}
+				{% if errors.has('auth') %}
+					<div class="row">
+						<div class="col-sm-offset-4 col-sm-8">
+							<div class="alert alert-danger">{$ errors.first('auth') $}</div>
+						</div>
+					</div>
+				{% endif %}
+			{% endblock %}
+			<div class="form-group">
+				<label class="col-sm-4 control-label">
+					Логин
+				</label>
+				<div class="col-sm-8">
+					<input
+						class="form-control"
+						name="login"
+						placeholder="Логин"
+						type="text"
+						value="{$ request.inputPrev.login|default('') $}"
+					>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-4 control-label">
+					Пароль
+				</label>
+				<div class="col-sm-8">
+					<input class="form-control" name="password" placeholder="Пароль" type="password">
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-offset-4 col-sm-8">
+					<button class="btn btn-default" type="submit">
+						Войти
+					</button>
+				</div>
+			</div>
+		</form>
+	{% endblock %}
+{% endif %}

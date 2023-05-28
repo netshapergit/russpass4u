@@ -1,0 +1,52 @@
+{% set id = random() %}
+
+<script src="http://api-maps.yandex.ru/2.1/?lang=ru_RU"></script>
+
+<script>
+	ymaps.ready(function() {
+		var map = new ymaps.Map('{$ id $}', {
+			center: [
+				{$ config.lat|default(0) $},
+				{$ config.lon|default(0) $}
+			],
+			controls: [
+				'typeSelector',
+				'fullscreenControl',
+				'zoomControl'
+			],
+			zoom: {$ config.zoom|default(0) $}
+		});
+
+		{% if config.mark.lat|default('') and config.mark.lon|default('') %}
+
+			var mark = new ymaps.Placemark(
+				[
+					{$ config.mark.lat|default(0) $},
+					{$ config.mark.lon|default(0) $}
+				],
+				{
+					{% if config.mark.label|default('') %}
+						balloonContentBody: '{$ config.mark.label|default('') $}'
+					{% endif %}
+				}
+			);
+
+			map.geoObjects.add(mark);
+
+		{% endif %}
+	});
+</script>
+
+{% block map %}
+	<div
+		id="{$ id $}"
+		style="
+			{% if config.height|default('') %}
+				height: {$ config.height $}px;
+			{% endif %}
+			{% if config.width|default('') %}
+				width: {$ config.width $}px;
+			{% endif %}
+		"
+	></div>
+{% endblock %}

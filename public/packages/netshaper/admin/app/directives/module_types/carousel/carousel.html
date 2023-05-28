@@ -1,0 +1,32 @@
+<div class="row">
+	<div class="col-sm-8">
+		<ns-option alias="config[carousel][image_size]" item="config" label="Размер изображения" options="list.custom.carousel.imageSizes" property="image_size" size="6"></ns-option>
+	</div>
+</div>
+
+<hr>
+
+<div ng-repeat="item in config.items">
+
+	<div class="row">
+		<div class="col-sm-6">
+			<ns-checkbox alias="{{ getAlias($index, 'active') }}" item="item" label="Активно" size="12" property="active"></ns-checkbox>
+		</div>
+		<div class="col-sm-6">
+			<div class="pull-right">
+				<ns-list-item-controls index="{{ $index }}" items="config.items"></ns-list-item-controls>
+			</div>
+		</div>
+	</div>
+
+	<ns-target alias="{{ getAlias($index) }}" item="item" pages="list.custom.carousel.pages"></ns-target>
+
+	<ns-image alias="{{ getAlias($index, 'image') }}" item="item" label="Изображение" property="image"></ns-image>
+
+	<hr>
+
+</div>
+
+<div class="pull-right">
+	<ns-list-controls create="create" items="config.items"></ns-list-controls>
+</div>

@@ -1,0 +1,19 @@
+.layout,
+.wrap,
+.block,
+.module {
+	position: relative;
+}
+
+ul.nav li.dropdown > ul.dropdown-menu {
+	margin: 0;
+}
+
+ul.nav li.dropdown:hover > ul.dropdown-menu {
+	display: block;
+}
+
+a.cboxElement {
+	display: inline-block;
+	margin: 0 10px 10px 0;
+}

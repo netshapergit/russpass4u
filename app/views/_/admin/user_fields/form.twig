@@ -1,0 +1,16 @@
+{% extends '_.admin.alter_fields.form' %}
+
+{% block fields_left %}
+
+	{$ parent() $}
+
+	<div class="row">
+		<div class="col-sm-6">
+			<ns-checkbox alias="hidden" item="item" label="Скрытое" size="8"></ns-checkbox>
+		</div>
+		<div class="col-sm-6">
+			<ns-checkbox alias="required" item="item" label="Обязательное" size="8"></ns-checkbox>
+		</div>
+	</div>
+
+{% endblock %}

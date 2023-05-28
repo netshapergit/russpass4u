@@ -1,0 +1,55 @@
+{% extends '_.admin.form' %}
+
+{% block fields %}
+
+	<div class="row">
+
+		<div class="col-sm-6">
+
+			<div class="row">
+				<div class="col-sm-4">
+					<ns-integer alias="id" disabled item="item" label="ID" ng-show="item.id" size="6"></ns-integer>
+				</div>
+				<div class="col-sm-4"></div>
+				<div class="col-sm-4">
+					<ns-checkbox alias="active" default="1" item="item" label="Пользователь активен" size="12"></ns-checkbox>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-sm-6">
+					<ns-string alias="login" item="item" label="Логин" size="8"></ns-string>
+				</div>
+				<div class="col-sm-6">
+					{#<ns-option alias="role" default="manager" item="item" label="Роль" options="list.roles" size="8"></ns-option>#}
+				</div>
+			</div>
+
+			<ns-email alias="email" item="item" label="E-mail"></ns-email>
+
+			<div class="row">
+				<div class="col-sm-6">
+					<ns-password alias="password" item="item" label="Пароль" size="8"></ns-password>
+				</div>
+				<div class="col-sm-6">
+					<ns-password alias="password_confirmation" item="item" label="Подтверждение" size="8"></ns-password>
+				</div>
+			</div>
+
+		</div>
+
+		<div class="col-sm-6">
+			<ns-incognito
+				alias="field_{{ field.alias }}"
+				field-type="{{ field.field_type.alias.replace('pages', 'options') }}"
+				item="item"
+				label="{{ field.name }}"
+				layouts="field.layouts"
+				ng-repeat="field in list.fields"
+				selects="field.selects"
+			></ns-incognito>
+		</div>
+
+	</div>
+
+{% endblock %}

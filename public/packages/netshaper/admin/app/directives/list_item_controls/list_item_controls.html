@@ -1,0 +1,11 @@
+<button class="btn btn-default btn-xs" ng-click="up(index)" ng-disabled="index === 0" type="button">
+	<span class="fa fa-arrow-up"></span>
+</button>
+
+<button class="btn btn-default btn-xs" ng-click="down(index)" ng-disabled="index + 1 === items.length" type="button">
+	<span class="fa fa-arrow-down"></span>
+</button>
+
+<button class="btn btn-default btn-xs" ng-click="remove(index)" ng-disabled="items.length === 1" type="button">
+	<span class="fa fa-trash-o"></span>
+</button>

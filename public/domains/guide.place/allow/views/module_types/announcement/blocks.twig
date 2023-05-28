@@ -1,0 +1,27 @@
+{% extends '_.module_types.announcement.columns' %}
+
+{% block item %}
+	<div class="thumbnail">
+
+		{% if item.field_image|default('') %}
+			<a href="{$ item.path $}">
+				<img src="/site/data/images/medium/{$ item.field_image $}">
+			</a>
+		{% endif %}
+
+		<div class="caption">
+
+			{% if item.field_header|default('') %}
+				<h3>{$ item.field_header $}</h3>
+			{% endif %}
+
+			{% if item.field_summary|default('') %}
+				<p>{$ item.field_summary $}</p>
+			{% endif %}
+
+			<a href="{$ item.path $}">Подробнее</a>
+
+		</div>
+
+	</div>
+{% endblock %}

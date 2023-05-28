@@ -1,0 +1,56 @@
+{% extends '_.admin.base' %}
+
+{% block head %}
+	{$ parent() $}
+	<link rel="stylesheet" href="/packages/netshaper/admin/app/controllers/grid.css">
+{% endblock %}
+
+{% block content %}
+	<div class="controller-grid" ng-controller="NetShaperAdminGridController">
+
+		<div class="layout" ng-click="setUp()">
+			{% include '_.admin.grid.rows' with { 'parentVar': 'rootPosition' } %}
+			<div class="dummy">
+				<div class="meta">
+					<div class="label label-warning">
+						dummy
+					</div>
+				</div>
+				{% include '_.admin.grid.modules' with { 'positionVar': 'dummyPosition' } %}
+			</div>
+		</div>
+
+		{#<div class="modal">#}
+			{#<div class="modal-dialog side">#}
+				<div class="modal-content side">
+					{#
+					<div class="modal-header">
+						<select
+							class="form-control input-sm"
+							ng-change="redirect()"
+							ng-model="item.id"
+							ng-options="item.page.id as item.page.title for item in items"
+						></select>
+					</div>
+					#}
+					<div class="modal-body">
+						<ul class="nav nav-stacked modules">
+							<li
+								class="module drag"
+								ng-drag="true"
+								ng-drag-data="moduleType"
+								ng-drag-success="onDrag($data, $event, MODULE_TYPE)"
+								ng-repeat="moduleType in list.moduleTypes"
+							>
+								<a ng-bind="moduleType.name"></a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			{#</div>#}
+		{#</div>#}
+
+		{% include '_.admin.grid.settings' %}
+
+	</div>
+{% endblock %}

@@ -1,0 +1,9 @@
+{% if page.field_header|default('') %}
+	<h1>{$ page.field_header $}</h1>
+{% endif %}
+
+{% if page.field_content|default('')|striptags %}
+	<div class="field_content">
+		{$ page.field_content|raw $}
+	</div>
+{% endif %}

@@ -1,0 +1,88 @@
+<div class="row">
+	<div class="col-sm-4">
+		<ns-checkbox alias="config[menu][nested]" item="config" label="Вложенное" property="nested" size="12"></ns-checkbox>
+	</div>
+	<div class="col-sm-4">
+		<ns-checkbox alias="config[menu][vertical]" item="config" label="Вертикальное" property="vertical" size="12"></ns-checkbox>
+	</div>
+</div>
+
+<div ng-repeat="item in config.items">
+
+	<a
+		class="pointer"
+		ng-bind="getItemLabel(item)"
+		ng-class="{
+			'text-warning': isEditedItem(item),
+			'text-muted': !item.active
+		}"
+		ng-click="editItem(item)"
+	></a>
+
+	<div ng-show="isEditedItem(item)">
+
+		<div class="row">
+			<div class="col-sm-6">
+				<ns-checkbox alias="{{ getAlias($index, 'active') }}" item="item" label="Активен" size="8" property="active"></ns-checkbox>
+			</div>
+			<div class="col-sm-6">
+				<div class="pull-right">
+					<ns-list-item-controls index="{{ $index }}" items="config.items"></ns-list-item-controls>
+				</div>
+			</div>
+		</div>
+
+		<ns-target alias="{{ getAlias($index) }}" item="item" pages="list.custom.menu.pages" target-required></ns-target>
+
+		<ns-string alias="{{ getAlias($index, 'label') }}" item="item" label="Текст" property="label"></ns-string>
+
+	</div>
+
+	<div class="row" ng-show="config.nested">
+
+		<div class="col-sm-offset-1 col-sm-11">
+
+			<div ng-repeat="subItem in item.items">
+
+				<a
+					class="pointer"
+					ng-bind="getItemLabel(subItem)"
+					ng-class="{
+						'text-warning': isEditedItem(subItem),
+						'text-muted': !subItem.active
+					}"
+					ng-click="editItem(subItem)"
+				></a>
+
+				<div ng-show="isEditedItem(subItem)">
+					<div class="row">
+						<div class="col-sm-6">
+							<ns-checkbox alias="{{ getNestedAlias($parent.$index, $index, 'active') }}" item="subItem" label="Активен" size="8" property="active"></ns-checkbox>
+						</div>
+						<div class="col-sm-6">
+							<div class="pull-right">
+								<ns-list-item-controls index="{{ $index }}" items="item.items"></ns-list-item-controls>
+							</div>
+						</div>
+					</div>
+
+					<ns-target alias="{{ getNestedAlias($parent.$index, $index) }}" item="subItem" pages="list.custom.menu.pages" target-required></ns-target>
+
+					<ns-string alias="{{ getNestedAlias($parent.$index, $index, 'label') }}" item="subItem" label="Текст" property="label"></ns-string>
+				</div>
+
+			</div>
+
+			<p></p>
+			<ns-list-controls create="create" items="item.items"></ns-list-controls>
+			<p></p>
+
+		</div>
+
+	</div>
+
+</div>
+
+<p></p>
+
+<ns-list-controls create="create" items="config.items"></ns-list-controls>

@@ -1,0 +1,41 @@
+{% extends '_.root' %}
+
+{% block head %}
+	{$ parent() $}
+	{#<link rel="stylesheet" href="/packages/bootstrap/3.1.1/css/bootstrap.min.css">#}
+	<link rel="stylesheet" href="/packages/bootstrap-themes/flatly/bootstrap.min.css">
+	<link rel="stylesheet" href="/packages/font-awesome/4.1.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="/packages/netshaper/admin/css/auth.css">
+{% endblock %}
+
+{% block title %}
+	Authentication
+	{$ parent() $}
+{% endblock %}
+
+{% block body %}
+	<div class="panel panel-primary" id="login">
+
+		<div class="panel-heading">
+			<h4>
+				<img alt="NetShaper" src="/packages/netshaper/admin/images/logo.png" title="NetShaper">
+			</h4>
+		</div>
+
+		<div class="panel-body">
+			<form action="/auth/login/admin" method="post">
+				<div class="form-group">
+					<input class="form-control" name="login" placeholder="Логин" type="text">
+				</div>
+				<div class="form-group">
+					<input class="form-control" name="password" placeholder="Пароль" type="password">
+				</div>
+				<button class="btn btn-default" type="submit">
+					<span class="fa fa-sign-in"></span>
+					Войти
+				</button>
+			</form>
+		</div>
+
+	</div>
+{% endblock %}

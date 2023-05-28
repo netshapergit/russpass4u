@@ -1,0 +1,39 @@
+{% extends '_.admin.form' %}
+
+{% block fields %}
+
+	<div class="row">
+
+		<div class="col-sm-6">
+
+			<div class="row">
+				<div class="col-sm-4">
+					<ns-integer alias="id" disabled item="item" label="ID" ng-show="item.id" size="6"></ns-integer>
+				</div>
+				<div class="col-sm-8">
+					<ns-string alias="alias" item="item" label="Алиас" size="9"></ns-string>
+				</div>
+			</div>
+
+			<ns-string alias="name" item="item" label="Название"></ns-string>
+			<ns-checkbox alias="structure" default="0" item="item" label="Элемент структуры" size="8"></ns-checkbox>
+
+		</div>
+
+		<div class="col-sm-6">
+
+			<ns-options alias="fields" item="item" label="Поля" options="list.fields" order require></ns-options>
+
+		</div>
+
+	</div>
+
+	<ns-code
+		alias="code"
+		item="item"
+		method="put"
+		size="12"
+		url="{{ item.id ? url.admin + '/' + request.segments[1] + '/' + item.id : null }}"
+	></ns-code>
+
+{% endblock %}

@@ -1,0 +1,35 @@
+<h4>Карта</h4>
+
+<div class="row">
+	<div class="col-sm-4">
+		<ns-double alias="config[map][height]" item="config" label="Высота" property="height" size="6"></ns-double>
+	</div>
+	<div class="col-sm-4">
+		<ns-double alias="config[map][width]" item="config" label="Ширина" property="width" size="6"></ns-double>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-sm-4">
+		<ns-double alias="config[map][lat]" item="config" label="Широта" property="lat" size="6"></ns-double>
+	</div>
+	<div class="col-sm-4">
+		<ns-double alias="config[map][lon]" item="config" label="Долгота" property="lon" size="6"></ns-double>
+	</div>
+	<div class="col-sm-4">
+		<ns-integer alias="config[map][zoom]" item="config" label="Масштаб" property="zoom" size="6"></ns-integer>
+	</div>
+</div>
+
+<h4>Метка</h4>
+
+<div class="row">
+	<div class="col-sm-4">
+		<ns-double alias="config[map][mark][lat]" item="config.mark" label="Широта" property="lat" size="6"></ns-double>
+	</div>
+	<div class="col-sm-4">
+		<ns-double alias="config[map][mark][lon]" item="config.mark" label="Долгота" property="lon" size="6"></ns-double>
+	</div>
+</div>
+
+<ns-string alias="config[map][mark][label]" item="config.mark" label="Подпись" property="label"></ns-string>

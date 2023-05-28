@@ -1,0 +1,40 @@
+{% extends '_.admin.form' %}
+
+{% block fields %}
+
+	<input class="display-none" name="origin_domain_id" ng-model="item.id" type="text">
+
+	<div class="row">
+
+		<div class="col-sm-6">
+
+			<div class="row">
+
+				<div class="col-sm-4">
+					<ns-integer alias="id" disabled item="item" label="ID" ng-show="item.id" size="6"></ns-integer>
+				</div>
+				<div class="col-sm-4">
+					<ns-checkbox alias="actual" default="1" item="item" label="Актуальная версия" size="12"></ns-checkbox>
+				</div>
+				<div class="col-sm-4">
+					<ns-checkbox alias="active" default="1" item="item" label="Домен активен" size="12"></ns-checkbox>
+				</div>
+			</div>
+
+			<ns-string alias="name" item="item" label="Имя"></ns-string>
+
+			<ns-options alias="admins" item="item" key="login" label="Админы" options="list.admins"></ns-options>
+
+		</div>
+
+		<div class="col-sm-6">
+
+			<ns-options alias="module_types" item="item" label="Типы модулей" options="list.module_types"></ns-options>
+
+			<ns-options alias="module_type_additions" item="item" label="Дополнения модулей" options="list.module_type_additions"></ns-options>
+
+		</div>
+
+	</div>
+
+{% endblock %}

@@ -1,0 +1,17 @@
+{% if config.external|default(false) and config.url|default('') %}
+	<a href="{$ config.url $}" target="_blank">
+{% elseif not config.external|default(false) and config.page|default(null) %}
+	<a href="{$ config.page.path $}">
+{% endif %}
+
+{% if config.image %}
+	{% block image %}
+		<img src="/site/data/files/{$ config.image $}">
+	{% endblock %}
+{% endif %}
+
+{% if config.external|default(false) and config.url|default('') %}
+	</a>
+{% elseif not config.external|default(false) and config.page|default(null) %}
+	</a>
+{% endif %}

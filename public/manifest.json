@@ -1,0 +1,23 @@
+{
+  "name": "guide.place",
+  "short_name": "guide.place",
+  "lang": "ru",
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#f91942",
+  "background_color":"#ffffff",
+  "icons": [
+    {
+      "src": "/site/theme/images/guideplace_logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/site/theme/images/guideplace_logo_192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

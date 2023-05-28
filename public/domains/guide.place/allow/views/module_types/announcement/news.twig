@@ -1,0 +1,29 @@
+{% extends '_.module_types.announcement.rows' %}
+
+{% block item %}
+
+	{% if item.field_image|default('') %}
+		<a class="pull-left" href="{$ item.path $}">
+			<img class="media-object" src="/site/data/images/small/{$ item.field_image $}">
+		</a>
+	{% endif %}
+
+	<div class="media-body">
+
+		<p class="text-muted">
+			<small>{$ item.created_at|date('H:i m.d.Y') $}</small>
+		</p>
+
+		{% if item.field_header|default('') %}
+			<h4 class="media-heading">{$ item.field_header $}</h4>
+		{% endif %}
+
+		{% if item.field_summary|default('') %}
+			<p>{$ item.field_summary $}</p>
+		{% endif %}
+
+		<a href="{$ item.path $}">Подробнее</a>
+
+	</div>
+
+{% endblock %}

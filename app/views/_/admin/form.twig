@@ -1,0 +1,75 @@
+{% extends '_.admin.base' %}
+
+{% block head %}
+
+	{$ parent() $}
+	<script src="/packages/netshaper/admin/js/form.js?v={$ V $}"></script>
+
+{% endblock %}
+
+{% block content %}
+
+	<form
+		action="{{ getFormAction() }}"
+		class="form-horizontal"
+		method="post"
+		ng-controller="NetShaperAdminFormController"
+	>
+
+		<input name="_method" type="hidden" value="{{ getFormMethod() }}">
+
+		<div class="pull-right">
+
+			{% block buttons %}{% endblock %}
+
+			<button class="btn btn-danger btn-sm" id="destroy_button" ng-show="actions.delete && item.id" type="button">
+				<span class="fa fa-trash-o"></span>
+				Удалить
+			</button>
+
+			<a class="btn btn-warning btn-sm" href="{$ url.admin $}/{$ request.segments[1] $}">
+				<span class="fa fa-reply"></span>
+				К списку
+			</a>
+
+			<button class="btn btn-primary btn-sm" id="save_button" ng-show="actions.edit && item.id" type="submit">
+				<span class="fa fa-save"></span>
+				Сохранить
+			</button>
+
+			<button class="btn btn-success btn-sm" ng-click="saveAs()" ng-show="actions.create && item.id" type="submit">
+				<span class="fa fa-save"></span>
+				Сохранить как
+			</button>
+
+			<button class="btn btn-success btn-sm" ng-show="actions.create && !item.id" type="submit">
+				<span class="fa fa-plus"></span>
+				Создать
+			</button>
+
+		</div>
+
+		<h3>
+			<span ng-bind="'Редактирование'" ng-show="item.id"></span>
+			<span ng-bind="'Создание'" ng-show="!item.id"></span>
+			<span ng-bind="text.formHeader" ng-show="text.formHeader"></span>
+		</h3>
+
+		<hr>
+
+		{% block fields %}{% endblock %}
+
+	</form>
+
+	{% if item|default(null) %}
+		<form
+			action="{$ url.admin $}/{$ request.segments[1] $}/{$ item.id $}"
+			class="display-none"
+			id="destroy_form"
+			method="post"
+		>
+			<input name="_method" type="hidden" value="delete">
+		</form>
+	{% endif %}
+
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends '_.admin.settings' %}
+
+{% block fields %}
+
+	<div class="row">
+
+		<div class="col-sm-6">
+			<ns-email alias="email" item="item" label="E-mail для оповещений"></ns-email>
+		</div>
+
+		<div class="col-sm-6">
+			<ns-incognito
+				alias="field_{{ field.alias }}"
+				field-type="{{ field.field_type.alias.replace('pages', 'options') }}"
+				item="item"
+				label="{{ field.name }}"
+				ng-repeat="field in list.fields"
+			></ns-incognito>
+		</div>
+
+	</div>
+
+{% endblock %}

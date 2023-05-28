@@ -1,0 +1,24 @@
+{% extends '_.site' %}
+
+{% block head %}
+	{$ parent() $}
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
+	<link rel="stylesheet" href="/packages/bootstrap/3.2.0/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/packages/netshaper/site/css/new.css">
+	{# <script src="/packages/bootstrap/3.2.0/js/bootstrap.min.js"></script> #}
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js"></script>
+{% endblock %}
+
+{% block body %}
+	{# todo add class based on page path #}
+	<div class="page">
+		{% for position in positions %}
+			{% include '_.grid' %}
+		{% endfor %}
+	</div>
+	<div class="hide">
+		{% for module in dummy %}
+			{$ module.content|default('')|raw $}
+		{% endfor %}
+	</div>
+{% endblock %}

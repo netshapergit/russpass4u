@@ -1,0 +1,214 @@
+{% extends '_.root' %}
+
+{% set V = constant('V') %}
+
+{% block title %}
+	Admin | {$ request.domain $} | NetShaper
+{% endblock %}
+
+{% block head %}
+
+	{#<link rel="stylesheet" href="/packages/bootstrap/3.1.1/css/bootstrap.min.css">#}
+	<link rel="stylesheet" href="/packages/bootstrap-themes/yeti/bootstrap.min.css">
+	<link rel="stylesheet" href="/packages/font-awesome/4.1.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="/packages/summernote/0.5.1/dist/summernote.css">
+	<link rel="stylesheet" href="/packages/codemirror/4.3/lib/codemirror.css">
+	<link rel="stylesheet" href="/packages/codemirror/4.3/theme/ambiance.css">
+	<link rel="stylesheet" href="/packages/codemirror/4.3/addon/display/fullscreen.css">
+
+	<link rel="stylesheet" href="/packages/netshaper/admin/css/base.css?v={$ V $}">
+	<link rel="stylesheet" href="/packages/netshaper/user/css/base.css?v={$ V $}">
+
+	<script src="/packages/jquery/2.1.1/jquery.min.js"></script>
+	<script src="/packages/angular/1.2.17/angular.min.js"></script>
+	<script src="/packages/angular-ui/ui-utils/0.1.1/ui-utils.min.js"></script>
+	<script src="/packages/fatlinesofcode/ng-draggable/ngDraggable.js"></script>
+	<script src="/packages/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+	<script src="/packages/summernote/0.5.1/dist/summernote.min.js"></script>
+	<script src="/packages/summernote/0.5.1/lang/summernote-ru-RU.js"></script>
+	<script src="/packages/jquery-ocupload/jquery.ocupload-min.js"></script>
+	<script src="/packages/codemirror/4.3/lib/codemirror.js"></script>
+	<script src="/packages/codemirror/4.3/mode/css/css.js"></script>
+	<script src="/packages/codemirror/4.3/mode/htmlmixed/htmlmixed.js"></script>
+	<script src="/packages/codemirror/4.3/mode/javascript/javascript.js"></script>
+	<script src="/packages/codemirror/4.3/mode/xml/xml.js"></script>
+	<script src="/packages/codemirror/4.3/addon/display/fullscreen.js"></script>
+
+	<script src="/packages/faf/directives/range/range.js"></script>
+	<script src="/packages/faf/directives/datetime/datetime.js"></script>
+
+	<script>window.V = '{$ V $}';</script>
+
+	<script src="/packages/netshaper/admin/app/app.js?v={$ V $}"></script>
+	<script src="/packages/netshaper/admin/app/directives/code_editor/code_editor.js?v={$ V $}"></script>
+	<script src="/packages/netshaper/admin/app/directives/field_types/checkbox/checkbox.js?v={$ V $}"></script>
+	<script src="/packages/netshaper/admin/app/directives/field_types/code/code.js?v={$ V $}"></script>
+	<script src="/packages/netshaper/admin/app/directives/field_types/color/color.js?v={$ V $}"></script>
+	<script src="/packages/netshaper/admin/app/directives/field_types/date/date.js?v={$ V $}"></script>
+	<script src="/packages/netshaper/admin/app/directives/field_types/datetime/datetime.js?v={$ V $}"></script>
+	<script src="/packages/netshaper/admin/app/directives/field_types/double/double.js?v={$ V $}"></script>
+	<script src="/packages/netshaper/admin/app/directives/field_types/email/email.js?v={$ V $}"></script>
+	<script src="/packages/netshaper/user/app/directives/field_types/file/file.js?v={$ V $}"></script>
+	<script src="/packages/netshaper/admin/app/directives/field_types/html/html.js?v={$ V $}"></script>
+	<script src="/packages/netshaper/user/app/directives/field_types/image/image.js?v={$ V $}"></script>
+	<script src="/packages/netshaper/admin/app/directives/field_types/integer/integer.js?v={$ V $}"></script>
+	<script src="/packages/netshaper/admin/app/directives/field_types/link/link.js?v={$ V $}"></script>
+	<script src="/packages/netshaper/admin/app/directives/field_types/money/money.js?v={$ V $}"></script>
+	<script src="/packages/netshaper/admin/app/directives/field_types/option/option.js?v={$ V $}"></script>
+	<script src="/packages/netshaper/admin/app/directives/field_types/options/options.js?v={$ V $}"></script>
+	<script src="/packages/netshaper/admin/app/directives/field_types/page/page.js?v={$ V $}"></script>
+	<script src="/packages/netshaper/admin/app/directives/field_types/password/password.js?v={$ V $}"></script>
+	<script src="/packages/netshaper/admin/app/directives/field_types/string/string.js?v={$ V $}"></script>
+	<script src="/packages/netshaper/admin/app/directives/field_types/text/text.js?v={$ V $}"></script>
+	<script src="/packages/netshaper/admin/app/directives/field_types/time/time.js?v={$ V $}"></script>
+	<script src="/packages/netshaper/admin/app/directives/form_group/form_group.js?v={$ V $}"></script>
+	<script src="/packages/netshaper/admin/app/directives/form_upload/form_upload.js?v={$ V $}"></script>
+	<script src="/packages/netshaper/admin/app/directives/incognito/incognito.js?v={$ V $}"></script>
+	<script src="/packages/netshaper/admin/app/directives/incognito_module_type/incognito_module_type.js?v={$ V $}"></script>
+	<script src="/packages/netshaper/admin/app/directives/list_controls/list_controls.js?v={$ V $}"></script>
+	<script src="/packages/netshaper/admin/app/directives/list_item_controls/list_item_controls.js?v={$ V $}"></script>
+	<script src="/packages/netshaper/admin/app/directives/module_types/announcement/announcement.js?v={$ V $}"></script>
+	<script src="/packages/netshaper/admin/app/directives/module_types/banner/banner.js?v={$ V $}"></script>
+	<script src="/packages/netshaper/admin/app/directives/module_types/carousel/carousel.js?v={$ V $}"></script>
+	<script src="/packages/netshaper/admin/app/directives/module_types/form/form.js?v={$ V $}"></script>
+	<script src="/packages/netshaper/admin/app/directives/module_types/gallery/gallery.js?v={$ V $}"></script>
+	<script src="/packages/netshaper/admin/app/directives/module_types/html/html.js?v={$ V $}"></script>
+	<script src="/packages/netshaper/admin/app/directives/module_types/map/map.js?v={$ V $}"></script>
+	<script src="/packages/netshaper/admin/app/directives/module_types/menu/menu.js?v={$ V $}"></script>
+	<script src="/packages/netshaper/admin/app/directives/module_types/plan/plan.js?v={$ V $}"></script>
+	<script src="/packages/netshaper/admin/app/directives/module_types/slideshow/slideshow.js?v={$ V $}"></script>
+	<script src="/packages/netshaper/admin/app/directives/module_types/slideshow2/slideshow2.js?v={$ V $}"></script>
+	<script src="/packages/netshaper/admin/app/directives/module_types/source/source.js?v={$ V $}"></script>
+	<script src="/packages/netshaper/admin/app/directives/module_types/text/text.js?v={$ V $}"></script>
+	<script src="/packages/netshaper/admin/app/directives/module_types/account/account.js?v={$ V $}"></script>
+	<script src="/packages/netshaper/admin/app/directives/target/target.js?v={$ V $}"></script>
+	<script src="/packages/netshaper/admin/app/directives/upload/upload.js?v={$ V $}"></script>
+	<script src="/packages/netshaper/user/app/directives/wysiwyg/wysiwyg.js?v={$ V $}"></script>
+	<script src="/packages/netshaper/admin/app/services/global/global.js?v={$ V $}"></script>
+
+{% endblock %}
+
+{% block body %}
+<div class="magical_cup">
+
+
+	<div
+		class="display-none"
+		id="root"
+		ng-app="netshaper.admin"
+		ng-controller="NetShaperAdminRootController"
+		ng-init="init({$ vars|json_encode $}, {$ errors.toArray()|json_encode $})"
+	>
+
+		<header>
+			<nav class="navbar navbar-default navbar-static-top magicalgifts">
+				<div class="container-fluid">
+					<div class="navbar-header">
+						<a class="navbar-brand" href="{$ url.admin $}">
+							<img alt="NetShaper" src="/packages/netshaper/user/images/logo_magicalgifts.png" title="NetShaper" style="width: 270px;">
+						</a>
+					</div>
+					
+					<ul class="nav navbar-nav">
+
+						{% for partition in menu %}
+
+							{% if partition.items is defined %}
+
+								<li
+									class="
+										dropdown
+										{% if partition.active|default(false) %}
+											active
+										{% endif %}
+									"
+								>
+									<a href="#" class="dropdown-toggle">
+										{$ partition.label $}
+										<b class="caret"></b>
+									</a>
+									<ul class="dropdown-menu">
+										{% for item in partition.items %}
+											<li
+												{% if item.alias == request.segments[1]|default('') %}
+													class="active"
+												{% endif %}
+											>
+												<a href="{$ url.admin $}/{$ item.alias $}">
+													{$ item.label $}
+												</a>
+											</li>
+										{% endfor %}
+									</ul>
+								</li>
+
+							{% else %}
+
+								<li
+									{% if partition.alias == request.segments[1]|default('') %}
+										class="active"
+									{% endif %}
+								>
+									<a href="{$ url.admin $}/{$ partition.alias $}">
+										{$ partition.label $}
+									</a>
+								</li>
+
+							{% endif %}
+
+						{% endfor %}
+
+					</ul>
+					<ul class="nav navbar-nav pull-right">
+						<!--<li>
+							<a href="{$ url.root $}" target="_blank">
+								<span class="fa fa-globe"></span>
+								Сайт
+							</a>
+						</li>-->
+						<li style="margin-top:10px; font-size:18px;">
+							<a href="/auth/logout">
+								<span class="fa fa-sign-out"></span>
+								Выход
+							</a>
+						</li>
+					</ul>
+					<p class="navbar-text pull-right" style="margin-top:20px; font-size:18px;">
+					<span>Добро пожаловать, </span>
+						<span class="text-info">
+							<span class="fa fa-user"></span>
+							{$ user.login $}
+						</span> !
+					</p>
+				</div>
+			</nav>
+		</header>
+
+		<div class="mean">
+			<div class="container-fluid">
+				<div class="content">
+					{% block content %}{% endblock %}
+				</div>
+			</div>
+		</div>
+
+		<footer>
+			<div class="container-fluid">
+
+				<hr>
+
+				<div class="text-right text-muted">
+					<small>
+						Powered by
+						<a href="http://netshaper.org/" target="_blank">NetShaper</a>
+						+
+						<a href="http://qr.place/" target="_blank">QR.place</a>
+					</small>
+				</div>
+
+			</div>
+		</footer>
+
+	</div>
+</div>
+{% endblock %}

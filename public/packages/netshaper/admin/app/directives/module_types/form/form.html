@@ -1,0 +1,13 @@
+<div class="row">
+	<div class="col-sm-8">
+		<ns-option alias="config[form][forme_id]" item="config" label="Форма" options="list.custom.form.formes" property="forme_id" size="9"></ns-option>
+	</div>
+</div>
+<div class="row">
+	<div class="col-sm-4">
+		<ns-checkbox alias="config[form][horizontal]" item="config" label="Горизонтально" property="horizontal" size="12"></ns-checkbox>
+	</div>
+	<div class="col-sm-4" ng-show="config.horizontal">
+		<ns-option alias="config[form][size]" item="config" label="Размер" options="list.custom.form.sizes" property="size" size="6"></ns-option>
+	</div>
+</div>

@@ -1,0 +1,3 @@
+{% for line in config.content|default('')|split('\n') %}
+	<span>{$ line $}</span>
+{% endfor %}

@@ -1,0 +1,14 @@
+{% extends '_.admin.file' %}
+
+{% block fields %}
+
+	<div class="form-group">
+		<div class="col-sm-12">
+			<a class="btn btn-default" href="/site/data/documents/{{ item.id }}" target="_blank">
+				<span class="fa fa-download"></span>
+				Скачать
+			</a>
+		</div>
+	</div>
+
+{% endblock %}

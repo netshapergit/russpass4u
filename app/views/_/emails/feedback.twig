@@ -1,0 +1,22 @@
+<table>
+	{% for field in feedback.forme.fields %}
+		<tr>
+			<th style="text-align: left; vertical-align: top;">
+				{$ field.name $}
+			</th>
+			<td style="vertical-align: top; white-space: pre-wrap;">{#
+				#}{% if field.field_type.alias == 'option' %}{#
+					#}{$ feedback[field.getRelationName()].name $}{#
+				#}{% elseif field.field_type.alias == 'options' %}{#
+					#}{$ feedback[field.getRelationName()].lists('name')|join(', ') $}{#
+				#}{% elseif field.field_type.alias == 'file' %}{#
+					#}<a href="{$ 'http://' ~ feedback.useragent ~ '/site/data/files/' ~ feedback['field_' ~ field.alias] $}">{$ feedback['field_' ~ field.alias] $}</a>{#
+				#}{% else %}{#
+					#}{$ feedback['field_' ~ field.alias] $}{#
+				#}{% endif %}{#
+			#}</td>
+		</tr>
+	{% endfor %}
+</table>
+
+

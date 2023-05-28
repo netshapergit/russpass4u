@@ -1,0 +1,132 @@
+{% extends '_.admin.base' %}
+
+{% block content %}
+
+	<a class="btn btn-success btn-sm pull-right" href="{$ url.admin $}/{$ request.segments[1] $}/create" ng-show="actions.create">
+		<span class="fa fa-plus"></span>
+		Создать
+	</a>
+
+	<h3 ng-bind="text.listHeader"></h3>
+
+	<hr>
+
+	<table class="table table-condensed table-hover">
+		<thead>
+			<tr>
+
+				{% for column in columns %}
+					<th>
+						{% if column.alias|default('') or column.label|default('') %}
+
+							{% if column.type|default('') %}
+
+								{$ column.label|default(column.alias) $}
+
+							{% else %}
+
+								<a href="{$ request.url $}?sort={$ column.alias $}{% if request.input.sort|default('id') == column.alias and not request.input.desc|default(false) %}&desc=1{% endif %}">
+									{$ column.label|default(column.alias) $}
+								</a>
+
+								{% if request.input.sort|default('id') == column.alias %}
+									<span
+										class="
+											fa
+											{% if request.input.desc|default(false) %}
+												fa-sort-alpha-desc
+											{% else %}
+												fa-sort-alpha-asc
+											{% endif %}
+										"
+									></span>
+								{% endif %}
+
+							{% endif %}
+
+						{% endif %}
+					</th>
+				{% endfor %}
+
+				<th></th>
+
+			</tr>
+		</thead>
+		<tbody>
+			{% for item in items %}
+				<tr>
+
+					{% block row %}
+
+						{% for column in columns %}
+							<td>
+								{% if column.type|default('') == '' %}
+									{$ item[column.alias] $}
+								{% elseif column.type == 'checkbox' %}
+									{% if item[column.alias] %}
+										<span class="fa fa-check-square-o text-success"></span>
+									{% else %}
+										<span class="fa fa-square-o text-danger"></span>
+									{% endif %}
+								{% elseif column.type == 'relation' %}
+									{% set relation = item[column.alias] %}
+									{% if relation %}
+										{% if column.url %}
+											<a href="{$ url.admin $}/{$ column.url $}/{$ relation.id $}/edit">
+												{$ relation[column.key|default('name')] ?: relation.id$}
+											</a>
+										{% else %}
+											<div class="text-muted">
+												{$ relation[column.key|default('name')] ?: relation.id$}
+											</div>
+										{% endif %}
+									{% endif %}
+								{% elseif column.type == 'collection' %}
+									{% if item[column.alias]|length > 0 %}
+										{$ item[column.alias]|length $}:
+										{% for relation in item[column.alias] %}
+											{% if column.url|default(false) %}
+												<a
+													href="{$ url.admin $}/{$ column.url $}/{$ relation.id $}/edit"
+												>{$ relation[column.key|default('name')] ?: relation.id $}</a>,
+											{% else %}
+												<div class="text-muted">{$ relation[column.key|default('name')] ?: relation.id $}</div>,
+											{% endif %}
+										{% endfor %}
+									{% endif %}
+								{% elseif column.type == 'option' %}
+									{$ column.options[item[column.alias]]|default('') $}
+								{% elseif column.type == 'url' %}
+									{% if item[column.alias]|default('') %}
+										<a
+											href="{$ item[column.alias] $}"
+											{% if column.targetBlank|default(false) %}
+												target="_blank"
+											{% endif %}
+										>
+											{% if column.icon|default('') %}
+												<span class="fa fa-{$ column.icon $}"></span>
+											{% else %}
+												{$ item[column.alias] $}
+											{% endif %}
+										</a>
+									{% endif %}
+								{% elseif column.type == 'datetime' %}
+									<datetime format="{$ column.format $}" value="{$ item[column.alias] $}"></datetime>
+								{% endif %}
+							</td>
+						{% endfor %}
+
+					{% endblock %}
+
+					<td>
+						<a href="{$ url.admin $}/{$ request.segments[1] $}/{$ item.id $}/edit" ng-show="actions.edit">
+							<span class="fa fa-pencil"></span>
+						</a>
+					</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+
+{% endblock %}

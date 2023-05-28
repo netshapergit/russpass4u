@@ -1,0 +1,13 @@
+{% if config.pages|default([])|length > 0 %}
+	<ul>
+		{% block items %}
+			{% for item in config.pages %}
+				<li>
+					{% block item %}
+						<a href="{$ item.path $}">{$ item.title $}</a>
+					{% endblock %}
+				</li>
+			{% endfor %}
+		{% endblock %}
+	</ul>
+{% endif %}

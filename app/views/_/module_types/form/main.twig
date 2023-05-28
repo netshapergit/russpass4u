@@ -1,0 +1,93 @@
+{% set id = 'form_' ~ random() %}
+
+<script src="/packages/jquery-ocupload/jquery.ocupload-min.js"></script>
+
+<script>
+	$(function() {
+		$('#{$ id $} .file-upload').each(function(index, node) {
+			var button = $(node);
+			var wrap = button.parents('.file-upload-wrapper');
+
+			var input = wrap.children('input');
+			var uploaded = wrap.children('.btn-link');
+
+			button.upload({
+				action: '/form_uploads',
+				onComplete: function(responseRaw) {
+					var response;
+
+					try {
+						response = JSON.parse(responseRaw)
+					} catch (err) {
+						console.error(err);
+					}
+
+					if (response) {
+						input.val(response.fileName);
+						console.log(uploaded.length)
+						uploaded.removeClass('invisible');
+						uploaded.prop('href', response.path + response.fileName);
+					} else {
+						alert('Произошла ошибка');
+					}
+				}
+			});
+		});
+	});
+</script>
+
+<style>
+	#{$ id $} .file-upload-wrapper form input {
+		left: 0;
+		top: 0;
+	}
+</style>
+
+{% if data.sent %}
+	{% block notification %}
+		<div class="alert alert-success">
+			{$ config.forme.notification|raw $}
+		</div>
+	{% endblock %}
+{% endif %}
+
+{% block form %}
+	<form
+		action="/form/{$ config.forme.id $}"
+		{% if config.horizontal|default(false) %}
+			class="form-horizontal"
+		{% endif %}
+		id="{$ id $}"
+		method="post"
+	>
+
+		{% for field in config.forme.fields %}
+			{%
+				include '_.field' with {
+					'horizontal': config.horizontal|default(false),
+					'required': field.pivot.required|default(false),
+					'size': config.size|default(9)
+				}
+			%}
+		{% endfor %}
+
+		{% block submit %}
+			<div class="form-group">
+
+				{% if config.horizontal|default(false) %}
+					<div class="col-sm-offset-{$ 12 - config.size|default(9) $} col-sm-{$ config.size|default(9) $}">
+				{% endif %}
+
+				{% block button %}
+					<input class="btn btn-default" type="submit" value="Отправить">
+				{% endblock %}
+
+				{% if config.horizontal|default(false) %}
+					</div>
+				{% endif %}
+
+			</div>
+		{% endblock %}
+
+	</form>
+{% endblock %}

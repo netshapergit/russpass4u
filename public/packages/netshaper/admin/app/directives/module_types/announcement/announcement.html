@@ -1,0 +1,45 @@
+<div class="row">
+	<div class="col-sm-4">
+		<ns-integer
+			alias="config[announcement][limit]"
+			item="config"
+			label="Количество"
+			property="limit"
+			size="6"
+		></ns-integer>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-sm-6">
+		<ns-option
+			alias="config[announcement][order_by]"
+			default="order"
+			item="config"
+			label="Сортировка"
+			options="list.custom.announcement.order_bys"
+			property="order_by"
+			size="8"
+		></ns-option>
+	</div>
+	<div class="col-sm-6">
+		<ns-option
+			alias="config[announcement][order_direction]"
+			default="asc"
+			item="config"
+			label="Порядок"
+			options="list.custom.announcement.order_directions"
+			property="order_direction"
+			size="8"
+		></ns-option>
+	</div>
+</div>
+
+
+<ns-options
+	alias="config[announcement][parent_pages]"
+	item="config"
+	label="Родительские страницы"
+	pages="list.custom.announcement.pages"
+	property="parent_pages"
+></ns-options>

@@ -1,0 +1,12 @@
+<div class="module layout-{$ module.module_type_layout.alias|default('none') $} type-{$ module.module_type.alias|default('none') $}">
+	{% if module.show_name|default(false) %}
+		<div class="module-heading">
+			{% for line in module.name|default('')|split('\n') %}
+				<span>{$ line $}</span>
+			{% endfor %}
+		</div>
+	{% endif %}
+	<div class="module-body">
+		{$ module.content|default('')|raw $}
+	</div>
+</div>

@@ -1,0 +1,89 @@
+{% if not user %}
+	{% block form %}
+		<form action="/register" class="form-horizontal" method="post">
+			<div class="form-group {% if errors.has('login') %}has-error{% endif %}">
+				<label class="col-sm-4 control-label">
+					Логин
+				</label>
+				<div class="col-sm-8">
+					<input
+						class="form-control"
+						name="login"
+						placeholder="Логин"
+						required
+						type="text"
+						value="{$ request.inputPrev.login|default('') $}"
+					>
+					{% if errors.has('login') %}
+						<p class="help-block">{$ errors.first('login') $}</p>
+					{% endif %}
+				</div>
+			</div>
+			<div class="form-group {% if errors.has('email') %}has-error{% endif %}">
+				<label class="col-sm-4 control-label">
+					E-mail
+				</label>
+				<div class="col-sm-8">
+					<input
+						class="form-control"
+						name="email"
+						placeholder="E-mail"
+						required
+						type="email"
+						value="{$ request.inputPrev.email|default('') $}"
+					>
+					{% if errors.has('email') %}
+						<p class="help-block">{$ errors.first('email') $}</p>
+					{% endif %}
+				</div>
+			</div>
+			<div class="form-group {% if errors.has('password') %}has-error{% endif %}">
+				<label class="col-sm-4 control-label">
+					Пароль
+				</label>
+				<div class="col-sm-8">
+					<input
+						class="form-control"
+						name="password"
+						placeholder="Пароль"
+						required
+						type="password"
+					>
+					{% if errors.has('password') %}
+						<p class="help-block">{$ errors.first('password') $}</p>
+					{% endif %}
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-4 control-label">
+					Подтверждение
+				</label>
+				<div class="col-sm-8">
+					<input
+						class="form-control"
+						name="password_confirmation"
+						placeholder="Подтверждение"
+						required
+						type="password"
+					>
+				</div>
+			</div>
+			{% for field in config.fields if not field.hidden %}
+				{%
+					include '_.field' with {
+						'horizontal': true,
+						'required': field.required,
+						'size': 8
+					}
+				%}
+			{% endfor %}
+			<div class="form-group">
+				<div class="col-sm-offset-4 col-sm-8">
+					<button class="btn btn-default" type="submit">
+						Зарегистрироваться
+					</button>
+				</div>
+			</div>
+		</form>
+	{% endblock %}
+{% endif %}

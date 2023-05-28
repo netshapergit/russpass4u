@@ -1,0 +1,17 @@
+{% if config.pages|default([])|length > 0 %}
+	<ul class="media-list">
+		{% block items %}
+			{% for item in config.pages %}
+				<li class="media">
+					{% block item %}
+						<div class="media-body">
+							<h4 class="media-heading">
+								<a href="{$ item.path $}">{$ item.title $}</a>
+							</h4>
+						</div>
+					{% endblock %}
+				</li>
+			{% endfor %}
+		{% endblock %}
+	</ul>
+{% endif %}

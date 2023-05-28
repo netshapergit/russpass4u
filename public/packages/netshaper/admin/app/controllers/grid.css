@@ -1,0 +1,181 @@
+.controller-grid .side {
+	bottom: 0;
+	margin: 0;
+	left: 0;
+	overflow: auto;
+	position: absolute;
+	top: 45px;
+	width: 250px;
+}
+
+.controller-grid .side .modal-body {
+	padding: 0;
+}
+
+.controller-grid .settings {
+	bottom: 0;
+	margin: 0;
+	overflow: auto;
+	position: absolute;
+	right: 0;
+	top: 45px;
+	width: 600px;
+}
+
+.controller-grid .settings .modal-dialog {
+	margin-top: 31px;
+}
+
+.controller-grid .settings .close {
+	color: #000;
+}
+
+.controller-grid .layout {
+	padding-left: 295px;
+}
+
+.controller-grid .layout .dummy {
+	border: #e99002 solid 1px;
+	box-shadow: rgba(233, 144, 2, .3) 0 0 20px inset;
+	margin-top: 27px;
+	padding: 0 10px;
+}
+
+.controller-grid .layout .meta {
+	left: 0;
+	overflow: hidden;
+	position: relative;
+	top: -18px;
+}
+
+.controller-grid .layout .grid > .meta {
+	margin: 0 -1px 9px;
+}
+
+.controller-grid .layout .grid-col > .meta {
+	margin: 0 -11px -18px;
+	top: -18px;
+}
+
+.controller-grid .layout .dummy > .meta {
+	margin: 0 -11px -18px;
+}
+
+.controller-grid .layout .meta .label {
+	display: block;
+	float: left;
+	min-height: 18px;
+}
+
+.controller-grid .layout .grid.default {
+	margin-top: 10px;
+}
+
+.controller-grid .layout .grid.filled {
+	border: #f04124 solid 1px;
+	box-shadow: rgba(240, 65, 36, .3) 0 0 20px inset;
+}
+
+.controller-grid .layout .grid.filled.selected {
+	border: #b10 solid 1px;
+}
+
+.controller-grid .layout .grid.filled.inactive {
+	border-color: #e7e7e7;
+	box-shadow: none;
+}
+
+.controller-grid .layout .grid.filled.selected > .meta .label {
+	background-color: #b10;
+}
+
+.controller-grid .layout .inactive > .meta .label,
+.controller-grid .layout .module.inactive .label {
+	background-color: #e7e7e7;
+	color: #333;
+}
+
+.controller-grid .layout .grid + .grid.filled {
+	margin-top: 16px;
+}
+
+.controller-grid .layout .grid.filled > .grid-cover {
+	padding-bottom: 10px;
+}
+
+.controller-grid .layout .grid-col.filled {
+	border: #43ac6a solid 1px;
+	box-shadow: rgba(67, 172, 106, .3) 0 0 20px inset;
+	padding: 0 10px;
+}
+
+.controller-grid .layout .grid-col.filled.selected {
+	border: #173 solid 1px;
+}
+
+.controller-grid .layout .grid-col.filled.inactive {
+	border-color: #e7e7e7;
+	box-shadow: none;
+}
+
+.controller-grid .layout .grid-col.filled.selected > .meta .label {
+	background-color: #173;
+}
+
+.controller-grid .layout .module.selected .label {
+	background-color: #008cba;
+}
+
+.controller-grid .layout .grid.empty .grid-col,
+.controller-grid .layout .module.empty {
+	height: 10px;
+}
+
+.controller-grid .layout .grid-col.empty {
+	height: 10px;
+	width: 10px;
+}
+
+.controller-grid .layout .grid.empty .grid-col.drag-enter,
+.controller-grid .layout .module.empty.drag-enter {
+	height: 20px;
+}
+
+.controller-grid .layout .grid-col.empty.drag-enter {
+	height: 20px;
+	width: 20px;
+}
+
+.controller-grid .layout .meta .form-control {
+	max-width: 100px;
+}
+
+.controller-grid .layout .module.target {
+	margin-bottom: 10px;
+	margin-top: 10px;
+}
+
+.controller-grid .layout .target {
+	color: #ccc;
+	border: #ccc dashed 5px;
+	padding: 20px;
+}
+
+.controller-grid .layout .drag-enter {
+	border: #5bc0de dashed 5px;
+	box-shadow: rgba(91, 192, 222, .3) 0 0 20px inset;
+	color: #5bc0de;
+	cursor: move;
+}
+
+.controller-grid .layout .target .fa-hand-o-down {
+	display: none;
+}
+
+.controller-grid .layout .target.drag-enter .fa-hand-o-down {
+	display: inline-block;
+}
+
+.controller-grid .layout .target.drag-enter .fa-hand-o-left {
+	display: none;
+}

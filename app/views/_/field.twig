@@ -1,0 +1,252 @@
+{% block field %}
+	<div class="
+		form-group
+		type_{$ field.fieldType.alias $}
+		field_{$ field.alias $}
+		{% if errors.has('field_' ~ field.alias) %}
+			has-error
+		{% endif %}
+		{% if required|default(false) %}
+			required
+		{% endif %}
+	">
+	{% if field.fieldType.alias == 'checkbox' %}
+
+		{% block checkbox %}
+
+			<input name="field_{$ field.alias $}" type="hidden" value="">
+
+			{% if horizontal|default(false) %}
+				<div class="col-sm-offset-{$ 12 - size|default(9) $} col-sm-{$ size|default(9) $}">
+			{% endif %}
+
+			<div class="checkbox">
+				<label>
+					<input
+						{% if request.inputPrev['field_' ~ field.alias]|default('') %}
+							checked
+						{% endif %}
+						name="field_{$ field.alias $}"
+						type="checkbox"
+						value="1"
+						{% if required|default(false) %}
+							required
+						{% endif %}
+					>
+					{$ field.name $}
+				</label>
+			</div>
+
+			{#{% if errors.has('field_' ~ field.alias) %}#}
+			{#{% for error in errors.get('field_' ~ field.alias) %}#}
+			{#<p class="help-block">#}
+			{#{$ error $}#}
+			{#</p>#}
+			{#{% endfor %}#}
+			{#{% endif %}#}
+
+			{% if field.help|default('') %}
+				<p class="help-block">
+					{$ field.help $}
+				</p>
+			{% endif %}
+
+			{% if horizontal|default(false) %}
+				</div>
+			{% endif %}
+
+		{% endblock %}
+
+	{% else %}
+
+		{% block label %}
+			<label
+				{% if horizontal|default(false) %}
+					class="col-sm-{$ 12 - size|default(9) $} control-label"
+				{% endif %}
+			>{$ field.name $}</label>
+		{% endblock %}
+
+		{% block control %}
+
+			{% if horizontal|default(false) %}
+				<div class="col-sm-{$ size|default(9) $}">
+			{% endif %}
+
+			{% if field.fieldType.alias == 'text' %}
+				{% block type_text %}
+					<textarea
+						class="form-control"
+						name="field_{$ field.alias $}"
+						placeholder="{$ field.name $}"
+						{% if required|default(false) %}
+							required
+						{% endif %}
+						rows="4"
+					>{$ request.inputPrev['field_' ~ field.alias]|default('') $}</textarea>
+				{% endblock %}
+            {% elseif field.fieldType.alias == 'html' %}
+				{% block type_html %}
+					<textarea
+						class="form-control"
+						id="{$ field.name_id $}"
+						name="field_{$ field.alias $}"
+						placeholder="{$ field.name $}"
+						{% if required|default(false) %}
+							required
+						{% endif %}
+						rows="4"
+					>{$ request.inputPrev['field_' ~ field.alias]|default('') $}</textarea>
+				{% endblock %}
+			{% elseif field.fieldType.alias == 'string' %}
+				{% block type_string %}
+					<input
+						class="form-control"
+						name="field_{$ field.alias $}"
+						placeholder="{$ field.name $}"
+						{% if required|default(false) %}
+							required
+						{% endif %}
+						type="text"
+						value="{$ request.inputPrev['field_' ~ field.alias]|default('') $}"
+					>
+				{% endblock %}
+			{% elseif field.fieldType.alias == 'email' %}
+				{% block type_email %}
+					<input
+						class="form-control"
+						name="field_{$ field.alias $}"
+						placeholder="{$ field.name $}"
+						{% if required|default(false) %}
+							required
+						{% endif %}
+						type="email"
+						value="{$ request.inputPrev['field_' ~ field.alias]|default('') $}"
+					>
+				{% endblock %}
+			{% elseif field.fieldType.alias == 'integer' %}
+				{% block type_integer %}
+					<input
+						class="form-control"
+						name="field_{$ field.alias $}"
+						placeholder="{$ field.name $}"
+						{% if required|default(false) %}
+							required
+						{% endif %}
+						type="text"
+						value="{$ request.inputPrev['field_' ~ field.alias]|default('') $}"
+					>
+				{% endblock %}
+			{% elseif field.fieldType.alias == 'double' %}
+				{% block type_double %}
+					<input
+						class="form-control"
+						name="field_{$ field.alias $}"
+						placeholder="{$ field.name $}"
+						{% if required|default(false) %}
+							required
+						{% endif %}
+						type="text"
+						value="{$ request.inputPrev['field_' ~ field.alias]|default('') $}"
+					>
+				{% endblock %}
+			{% elseif field.fieldType.alias == 'date' %}
+				{% block type_date %}{% endblock %}
+			{% elseif field.fieldType.alias == 'time' %}
+				{% block type_time %}{% endblock %}
+			{% elseif field.fieldType.alias == 'datetime' %}
+				{% block type_datetime %}{% endblock %}
+			{% elseif field.fieldType.alias == 'file' %}
+				{% block type_file %}
+					<div class="file-upload-wrapper">
+						<input
+							name="field_{$ field.alias $}"
+							type="hidden"
+							value="{$ request.inputPrev['field_' ~ field.alias]|default('') $}"
+						>
+						<div class="pull-left">
+							<button class="btn btn-default file-upload" type="button">
+								Выбрать файл
+							</button>
+						</div>
+						<a
+							class="
+								btn btn-link pull-left
+								{% if not request.inputPrev['field_' ~ field.alias]|default('') %}
+									invisible
+								{% endif %}
+							"
+							href="/site/data/feedbacks/{$ request.inputPrev['field_' ~ field.alias]|default('') $}"
+							target="_blank"
+						>
+							Файл загружен
+						</a>
+						<div class="clearfix"></div>
+					</div>
+				{% endblock %}
+			{% elseif field.fieldType.alias == 'option' %}
+				{% block type_option %}
+					<select
+						class="form-control"
+						name="field_{$ field.alias $}"
+						{% if required|default(false) %}
+							required
+						{% endif %}
+					>
+						<option value=""></option>
+						{% for select in field.selects %}
+							{% for option in select.options %}
+								<option
+									{% if option.id == request.inputPrev['field_' ~ field.alias]|default('') %}
+										selected
+									{% endif %}
+									value="{$ option.id $}"
+								>{$ option.name $}</option>
+							{% endfor %}
+						{% endfor %}
+					</select>
+				{% endblock %}
+			{% elseif field.fieldType.alias == 'options' %}
+				{% block type_options %}
+					<input name="field_{$ field.alias $}" type="hidden" value="">
+					<select
+						class="form-control"
+						multiple
+						name="field_{$ field.alias $}[]"
+						{% if required|default(false) %}
+							required
+						{% endif %}
+						size="8"
+					>
+						{% for select in field.selects %}
+							{% for option in select.options %}
+								<option value="{$ option.id $}">{$ option.name $}</option>
+							{% endfor %}
+						{% endfor %}
+					</select>
+				{% endblock %}
+			{% endif %}
+
+			{% if field.help %}
+				<p class="help-block">
+					{$ field.help $}
+				</p>
+			{% endif %}
+
+			{#{% if errors.has('field_' ~ field.alias) %}#}
+			{#{% for error in errors.get('field_' ~ field.alias) %}#}
+			{#<p class="help-block">#}
+			{#{$ error $}#}
+			{#</p>#}
+			{#{% endfor %}#}
+			{#{% endif %}#}
+
+			{% if horizontal|default(false) %}
+				</div>
+			{% endif %}
+
+		{% endblock %}
+
+	{% endif %}
+	</div>
+{% endblock %}

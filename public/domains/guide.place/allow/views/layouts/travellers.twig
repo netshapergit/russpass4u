@@ -1,0 +1,24 @@
+<div class="travellers_item">
+	
+	{% if page.field_image|default('') %}
+	<div class="travellers_image">
+		<img data-rel="images" data-popup="/site/data/images/large/{$ page['field_image' ~ index] $}" src="/site/data/images/medium/{$ page['field_image' ~ index] $}">
+	</div>
+	{% endif %}
+
+	{% if page.field_header|default('') %}
+		<h1>{$ page.field_header $}</h1>
+	{% endif %}
+
+	{% if page.field_content|default('')|striptags %}
+		<div class="field_content">
+			<!--<h2>Описание</h2>-->
+			{$ page.field_content|raw $}
+		</div>
+	{% endif %}
+	
+	
+
+	
+	
+</div>

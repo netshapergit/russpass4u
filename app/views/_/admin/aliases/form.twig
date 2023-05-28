@@ -1,0 +1,27 @@
+{% extends '_.admin.form' %}
+
+{% block fields %}
+
+	<div class="row">
+
+		<div class="col-sm-6">
+
+			<div class="row">
+				<div class="col-sm-4">
+					<ns-integer alias="id" disabled item="item" label="ID" ng-show="item.id" size="6"></ns-integer>
+				</div>
+				<div class="col-sm-4"></div>
+				<div class="col-sm-4">
+					<ns-checkbox alias="active" default="1" item="item" label="Алиас активен" size="12"></ns-checkbox>
+				</div>
+			</div>
+
+			<ns-option alias="domain_id" item="item" label="Домен" options="list.domains"></ns-option>
+
+			<ns-string alias="name" item="item" label="Имя"></ns-string>
+
+		</div>
+
+	</div>
+
+{% endblock %}
